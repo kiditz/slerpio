@@ -1,5 +1,6 @@
 # Harusnya diset sebagai environment variabel ENCRYPT_KEY
 # encrypt:
 #    key: inisymmetrickeyrahasiasekali
+
 server:
-  port:9020
+    port: 9000
