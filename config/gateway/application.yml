@@ -1,9 +1,10 @@
 server:
-    port: 8020
+    port: 8091
 zuul:
     ignoredServices: '*'
     routes:
         slerpio: /slerp-io/**
+	slerpo-auth: /slerp-oauth/**
 
 security:
     user:
