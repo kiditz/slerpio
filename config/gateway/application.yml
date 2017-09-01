@@ -1,0 +1,19 @@
+server:
+    port: 8020
+zuul:
+    ignoredServices: '*'
+    routes:
+        slerpio: /slerp-io/**
+
+security:
+    user:
+        password: none
+    oauth2:
+        client:
+            accessTokenUri: http://localhost:8019/oauth/token
+            userAuthorizationUri: http://localhost:8019/oauth/authorize
+            clientId: onlinestore
+            clientSecret: 123456
+        resource:
+            jwt:
+                keyUri: http://localhost:8019/oauth/token_key
