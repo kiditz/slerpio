@@ -43,7 +43,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
-		<property name="packagesToScan" value="org.slerpio.entity" />
+		<property name="packagesToScan" value="org.slerp.oauth.entity" />
 		<property name="jpaProperties">
 			<props>
 				<!-- Configures the used database dialect. This allows Hibernate to create 

@@ -1,12 +1,17 @@
 server:
-  port: 8021
   contextPath: /slerpio
 spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
   datasource:
-    driverClassName: org.postgresql.Driver
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/slerp-io
     username: postgres
     password: rioters7
-    url: jdbc:postgresql://localhost:5432/slerp-io
+    driverClassName: org.postgresql.Driver
   mail:
     host: smtp.gmail.com
     port: 587

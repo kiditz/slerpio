@@ -1,0 +1,15 @@
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/repository/UserAuthorityRepository.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/entity/UserAuthority.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/entity/UserPrincipal.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/FindClientByClientId.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/entity/Client.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/FindUserPrincipalByUsername.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/OauthConstant.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/EditUserPrincipal.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/AddUserPrincipal.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/AddClient.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/GetAuthorityByUsername.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/service/oauth2/RemoveUserPrincipal.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/repository/UserPrincipalRepository.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/repository/ClientRepository.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth/src/main/java/org/slerp/oauth/Application.java

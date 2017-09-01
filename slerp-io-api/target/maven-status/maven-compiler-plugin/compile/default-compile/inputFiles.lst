@@ -1,0 +1,16 @@
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/listener/MailTemplate.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/listener/MailService.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/controller/UserController.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/JMSConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/RedisConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/controller/TaskController.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/CORSFilter.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/listener/MailListener.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/RepositoryConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/controller/TeacherController.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/Application.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/listener/JsonMessageConverter.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/RestExceptionHandler.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/controller/StudentController.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/listener/RedisService.java
+/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java/org/slerpio/api/controller/SchoolController.java
