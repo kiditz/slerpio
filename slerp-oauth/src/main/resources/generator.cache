@@ -1,0 +1,5 @@
+{
+  "packageRepo" : "org.slerp.oauth.repository",
+  "packageService" : "org.slerp.oauth.service.oauth2",
+  "packageEntity" : "org.slerp.oauth.entity"
+}

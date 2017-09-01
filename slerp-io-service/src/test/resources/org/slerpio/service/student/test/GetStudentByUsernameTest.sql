@@ -1,0 +1,2 @@
+INSERT INTO student (student_id, student_id, firstname, lastname, username, start_date, end_date, day_of_birth, parent_name, address, postal_code, active, school_id, class_id) VALUES 
+(1, 'Rifky', 'Aditya Bastara', 'kiditz', '2005-07-10', '2008-07-10', '1993-12-09', 'Nasrawati', 'JL. Prepedan, RT 004/007', '118810', true, 1, 3);

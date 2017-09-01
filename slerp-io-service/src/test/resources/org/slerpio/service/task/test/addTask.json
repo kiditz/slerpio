@@ -1,0 +1,92 @@
+{
+	"title": "Tugas Bahasa indonesia per tanggal 17 agustus",
+	"description": "Kumpulkan dan jangan telat",
+	"taskDate": "2017-08-19",
+	"lastUpdate": "2017-08-19T16:58:59+07:00",
+	"timer":"1 Jam",
+	"schoolClassId": {
+		"schoolClassId": 1
+	},
+	"taskQuestionList": [
+		{
+			"text": "How to fix this?  ",
+			"answeredKey": 1,
+			"image": "",
+			"taskAnswerList": [
+				{
+					"text": "Just write code"
+				},
+				{
+					"text": "Just do it by your self"
+				}
+			]
+		},
+		{
+			"text": "Apa yang akan anda lakukan saat menemui guru anda?",
+			"answeredKey": 1,
+			"image": "",
+			"taskAnswerList": [
+				{
+					"text": "Cium tangan"
+				},
+				{
+					"text": "Cium pipi"
+				},
+				{
+					"text": "Diam saja"
+				},
+				{
+					"text": "Cuek bebek"
+				}
+			]
+		},
+		{
+			"text": "Bagaimana jika a > b ",
+			"answeredKey": 1,
+			"image": "",
+			"taskAnswerList": [
+				{
+					"text": "Maka result adalah a"
+				},
+				{
+					"text": "Maka result adalah b"
+				}
+			]
+		},
+		{
+			"text": "How to create compiler",
+			"image": "",
+			"answeredKey": 1,
+			"taskAnswerList": [
+				{
+					"text": "I dont need to know, there is expert computer science can do"
+				},
+				{
+					"text": "I will learn to write once"
+				},
+				{
+					"text": "I know and will try something like that"
+				}
+			]
+		},
+		{
+			"text": "How to be computer science",
+			"image": "",
+			"answeredKey": 1,
+			"taskAnswerList": [
+				{
+					"text": "Got to school and learn more than the other"
+				},
+				{
+					"text": "Simple, just write your own compiler compiler"
+				},
+				{
+					"text": "No i cant be computer science"
+				},
+				{
+					"text": "I have to know but will never do it."
+				}
+			]
+		}
+	]
+}

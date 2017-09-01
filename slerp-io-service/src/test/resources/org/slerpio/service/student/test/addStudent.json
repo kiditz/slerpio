@@ -1,0 +1,18 @@
+{
+    "studentId" : 1,
+    "firstname" : "Hidayanti",
+    "lastname" : "Anatya Bastari",
+    "username" : "kiditz",
+    "startDate" : "2005-07-10",
+    "endDate" : "2008-07-10",
+    "dayOfBirth" : "1999-24-03",
+    "parentName" : "Nasrawati",
+    "address" : "JL. Prepedan, RT 004/007",
+    "postalCode" : "11810",
+    "active" : true,
+    "schoolId" : {
+      "schoolId" : 1,
+    },
+    "classId" : {
+      "schoolClassId" : 3,
+    }

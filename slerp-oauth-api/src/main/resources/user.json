@@ -1,0 +1,12 @@
+{
+	"userPrincipal": {
+		"userId": 3,
+		"username": "kiditz",
+		"hashedPassword": "cmlvdGVyczc=",
+		"accountNonExpired": true,
+		"accountNonLocked": true,
+		"credentialsNonExpired": true
+	}	
+}
+curl -X POST -vu clientauthcode:123456 http://localhost:10000/oauth/token -H "Accept: application/json" -d "grant_type=authorization_code&code=iMAtdP&redirect_uri=http://localhost:10001/api/state/new"
+curl -X POST -vu trusted-app:secret http://localhost:8020/oauth/token -H "Accept: application/json" -d "client_id=trusted-app&grant_type=password&username=kiditz&password=rioters7" 

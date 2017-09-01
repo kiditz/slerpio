@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: discovery
+
+---
+spring:
+    profiles: discovery1
+server:
+    port: 8016
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8017/eureka/
+
+---
+spring:
+    profiles: discovery2
+server:
+    port: 8017
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8016/eureka/

@@ -1,0 +1,28 @@
+server:
+  port: 8021
+  contextPath: /slerpio
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: rioters7
+    url: jdbc:postgresql://localhost:5432/slerp-io
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kiditzbastara@gmail.com
+    password: NullPointerException
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+  activemq:
+    user: admin
+    password: admin
+    broker-url: tcp://localhost:61616 #?jms.redeliveryPolicy.maximumRedeliveries=1
