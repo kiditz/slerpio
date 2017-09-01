@@ -1,20 +1,39 @@
 server:
-    port: 8091
+    port: 10000
 zuul:
     ignoredServices: '*'
     routes:
-        slerpio: /slerp-io/**
-	slerpo-auth: /slerp-oauth/**
+        slerp-io: /slerp-io/**
+        slerp-oauth: /slerp-oauth/**
 
 security:
     user:
         password: none
     oauth2:
         client:
-            accessTokenUri: http://localhost:8019/oauth/token
-            userAuthorizationUri: http://localhost:8019/oauth/authorize
+            accessTokenUri: http://localhost:10003/oauth/token
+            userAuthorizationUri: http://localhost:10003/oauth/authorize
             clientId: onlinestore
             clientSecret: 123456
         resource:
             jwt:
-                keyUri: http://localhost:8019/oauth/token_key
+                keyUri: http://localhost:10003/oauth/token_key
+
+---
+spring:
+    profiles: heroku
+server:
+    port: ${PORT:0}
+
+
+
+security:
+    oauth2:
+        client:
+            accessTokenUri: https://belajar-springcloud-auth.herokuapp.com/user/oauth/token
+            userAuthorizationUri: https://belajar-springcloud-auth.herokuapp.com/user/oauth/authorize
+            clientId: onlinestore
+            clientSecret: 123456
+        resource:
+            jwt:
+                keyUri: https://belajar-springcloud-auth.herokuapp.com/user/oauth/token_key
