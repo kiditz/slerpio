@@ -22,6 +22,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Camden.SR7</spring-cloud.version>
+		<docker.image.prefix>slerp</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -163,6 +164,14 @@
 					<properties>${project.basedir}/src/test/resources/application.properties</properties>
 					<apiDir>${project.basedir}/src/main/java</apiDir>
 					<srcDir>/home/kiditz/slerp-git/slerpio/slerp-product-service/src/main/java</srcDir>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.4</version>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 				</configuration>
 			</plugin>
 		</plugins>

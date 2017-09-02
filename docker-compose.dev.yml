@@ -1,0 +1,9 @@
+version: '2.1'
+services:  
+  config-server: 
+    build: config-server
+    ports:
+      - 8888:8888
+
+#  discovery-service:
+#    build: discovery-service
