@@ -1,17 +1,15 @@
-server:
-  port:8019
-  
+server: port:8019
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    username: 'postgres'    
-    password: 'rioters7'
-    url: 'jdbc:postgresql://localhost:5432/oauth'
-  mail: 
-    host: 'smtp.gmail.com'
+    username: postgres
+    password: rioters7
+    url: jdbc:postgresql://localhost:5432/oauth
+  mail:
+    host: smtp.gmail.com
     port: 587
-    username: 'kiditzbastara@gmail.com'
-    password: 'NullPointerException'
+    username: kiditzbastara@gmail.com
+    password: NullPointerException
     properties:
       mail:
         smtp:
@@ -19,6 +17,6 @@ spring:
             enable: true
             required: true
           auth: true
-          connectiontimeout : 10000
+          connectiontimeout: 10000
           timeout: 10000
           writetimeout: 10000
