@@ -5,5 +5,5 @@ services:
     ports:
       - 8888:8888
 
-#  discovery-service:
-#    build: discovery-service
+  discovery-service:
+    build: discovery-service

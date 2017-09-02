@@ -11,9 +11,3 @@ spring:
                     cloneOnStart: true
                     basedir: 'target/config'
 
----
-spring:
-    profiles: heroku
-eureka:
-    instance:
-        hostname: belajar-springcloud-configsvr.herokuapp.com
