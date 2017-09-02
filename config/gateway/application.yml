@@ -4,20 +4,19 @@ zuul:
     ignoredServices: '*'
     routes:
         slerp-io: /slerp-io/**
-        slerp-oauth: /slerp-oauth/**
 
 security:
     user:
         password: none
     oauth2:
         client:
-            accessTokenUri: http://localhost:10003/oauth/token
-            userAuthorizationUri: http://localhost:10003/oauth/authorize
-            clientId: onlinestore
+            accessTokenUri: http://localhost:8019/oauth/token
+            userAuthorizationUri: http://localhost:8019/oauth/authorize
+            clientId: 26fb9f8d36b892e043f4a8b107809ac2960e73e0
             clientSecret: 123456
         resource:
             jwt:
-                keyUri: http://localhost:10003/oauth/token_key
+                keyUri: http://localhost:8019/oauth/token_key
 
 ---
 spring:

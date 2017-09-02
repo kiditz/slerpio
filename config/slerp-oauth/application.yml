@@ -1,6 +1,5 @@
 server:
   port:8019
-  contextPath: '/slerp-oauth'
   
 spring:
   datasource:
