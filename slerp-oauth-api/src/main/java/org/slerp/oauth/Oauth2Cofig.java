@@ -77,7 +77,7 @@ public class Oauth2Cofig {
 		}
 	}
 
-	/*@EnableResourceServer
+	@EnableResourceServer
 	protected class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 		private String resourceId = "slerp";
 
@@ -90,5 +90,5 @@ public class Oauth2Cofig {
 		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 			resources.resourceId(resourceId);
 		}
-	}*/
+	}
 }
