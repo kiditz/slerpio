@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.core.env.Environment;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,8 +39,9 @@ public class UserController {
 	ReactiveHandler handler;
 	@Autowired
 	MessageSource messageSource;
-	@Autowired
-	Environment env;
+	
+	@Value("${slerp.oauth.url}")
+	String oauthUrl;
 	@Autowired
 	@Qualifier("removeUser")
 	BusinessTransaction removeUser;
@@ -62,7 +63,7 @@ public class UserController {
 			List<Domain> userAuthorityList = new ArrayList<>();
 			userAuthorityList.add(new Domain().put("authority", userDomain.getString("type").toUpperCase()));
 			requestDomain.put("userAuthorityList", userAuthorityList);
-			String url = env.getProperty("slerp.oauth.api.url") + "/register";
+			String url = oauthUrl + "/register";
 			Domain register = restTemplate.postForObject(url, requestDomain, Domain.class);
 			log.info("Registration Success {}", register);
 			String activationCode = UUID.randomUUID().toString().substring(0, 8);
@@ -95,7 +96,7 @@ public class UserController {
 	@PostMapping("activateUser")
 	@ResponseBody
 	public Domain activate(@RequestBody Domain inputDomain) {
-		String url = env.getProperty("slerp.oauth.api.url") + "/activateUser";
+		String url = oauthUrl + "/activateUser";
 		final Domain template = new Domain();
 		Domain domain = restTemplate.postForObject(url, inputDomain, Domain.class);
 		template.put("status", 0);
