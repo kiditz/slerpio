@@ -7,3 +7,12 @@ services:
 
   discovery-service:
     build: discovery-service
+    ports:
+      - 8761:8761
+  api-gateway:
+    build: api-gateway
+
+  slerp-io-api:
+    build: slerp-io-api
+    ports:
+      - 8019:8019
