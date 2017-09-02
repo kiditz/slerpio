@@ -1,17 +1,45 @@
 spring:
-  application:
-    name: discovery
-  cloud:
-    config:
-      uri: http://config:8888
-      fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user
+    application:
+        name: discovery
+
+---
+spring:
+    profiles: discovery1
+server:
+    port: 8016
 eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    server:
-      waitTimeInMsWhenSyncEmpty: 0
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8017/eureka/
+
+---
+spring:
+    profiles: discovery2
+server:
+    port: 8017
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8016/eureka/
+
+---
+spring:
+    profiles: heroku-discovery1
+eureka:
+    instance:
+        hostname: belajar-springcloud-discovery1.herokuapp.com
+        nonSecurePort: 80
+    client:
+        serviceUrl:
+            defaultZone: https://belajar-springcloud-discovery2.herokuapp.com/eureka/
+
+---
+spring:
+    profiles: heroku-discovery2
+eureka:
+    instance:
+        hostname: belajar-springcloud-discovery2.herokuapp.com
+        nonSecurePort: 80
+    client:
+        serviceUrl:
+            defaultZone: https://belajar-springcloud-discovery1.herokuapp.com/eureka/
