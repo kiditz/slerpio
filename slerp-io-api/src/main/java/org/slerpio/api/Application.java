@@ -11,14 +11,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 @SpringBootApplication
-@EnableOAuth2Sso
+//@EnableOAuth2Sso
 @EnableDiscoveryClient
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Configuration
+/*	@Configuration
 	@EnableResourceServer
 	protected class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 		private String resourceId = "slerp";
@@ -33,5 +33,5 @@ public class Application {
 		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 			resources.resourceId(resourceId);
 		}
-	}
+	}*/
 }

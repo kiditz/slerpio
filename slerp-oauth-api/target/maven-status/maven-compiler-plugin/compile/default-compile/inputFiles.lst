@@ -1,0 +1,16 @@
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/security/RedisService.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/model/UserAuthority.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/security/DefaultClientService.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/model/UserCredentials.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/RepositoryConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/controller/Oauth2Controller.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/Application.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/SecurityConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/security/UserSecurityService.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/security/ClientService.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/model/UserClientDetails.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/Oauth2Cofig.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/RedisConfiguration.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/model/Oauth2Client.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/security/UserDetailsServiceImpl.java
+/home/kiditz/slerp-git/slerpio/slerp-oauth-api/src/main/java/org/slerp/oauth/CORSFilter.java

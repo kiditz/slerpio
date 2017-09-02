@@ -1,10 +1,11 @@
+
+
 package org.slerp.oauth.controller;
 
 import org.slerp.core.CoreException;
 import org.slerp.core.Domain;
 import org.slerp.core.business.BusinessFunction;
 import org.slerp.core.business.BusinessTransaction;
-import org.slerp.oauth.security.MailService;
 import org.slerp.oauth.security.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,6 @@ public class Oauth2Controller {
 	BusinessTransaction editUserPrincipal;
 	@Autowired
 	RedisService redisService;
-	@Autowired
-	MailService mailService;
 
 	/**
 	 * {@link #addUserPrincipal(Domain)} will be insert into table

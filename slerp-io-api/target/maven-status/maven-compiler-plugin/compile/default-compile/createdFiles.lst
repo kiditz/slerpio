@@ -4,7 +4,6 @@ org/slerpio/api/RepositoryConfiguration$SmartLocaleResolver.class
 org/slerpio/api/RestExceptionHandler.class
 org/slerpio/api/RestExceptionHandler$ErrorResponse.class
 org/slerpio/api/listener/JsonMessageConverter.class
-org/slerpio/api/Application$Oauth2ResourceServerConfiguration.class
 org/slerpio/api/RestExceptionHandler$ErrorItem.class
 org/slerpio/api/CORSFilter.class
 org/slerpio/api/listener/MailService.class
