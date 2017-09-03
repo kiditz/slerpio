@@ -3,12 +3,17 @@ spring:
         name: slerp-io
     cloud:
         config:
-            failFast: false
-            discovery:
-                enabled: true
-                serviceId: configsvr
+            server:
+                bootstrap: true
+                git:
+                    uri: https://github.com/kiditz/slerpio.git
+                    searchPaths: 'config, config/{application}'
+                    cloneOnStart: true
+                    basedir: 'target/config'
 
+---
+spring:
+    profiles: heroku
 eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
+    instance:
+        hostname: belajar-springcloud-configsvr.herokuapp.com

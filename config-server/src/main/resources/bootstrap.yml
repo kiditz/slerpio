@@ -1,6 +1,6 @@
 spring:
     application:
-        name: config-svr
+        name: configsvr
     cloud:
         config:
             server:
