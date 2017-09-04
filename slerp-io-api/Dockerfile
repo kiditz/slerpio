@@ -1,8 +1,6 @@
-FROM openjdk
+FROM java:8-jre
 MAINTAINER kiditz <kiditzbastara@gmail.com>
 
-ADD ./target/slerp-io-api-1.0.0-SNAPSHOT.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/slerp-io-api-1.0.0-SNAPSHOT.jar"]
-
-
-EXPOSE 8019
+ADD ./target/slerp-io-api.jar /app/
+CMD ["java", "-Xmx200m", "-jar", "/app/slerp-io-api.jar"]
+EXPOSE 38289

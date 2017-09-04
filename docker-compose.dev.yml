@@ -4,15 +4,14 @@ services:
     build: config-server
     ports:
       - 8888:8888
-
   discovery-service:
     build: discovery-service
-    ports:
-      - 8761:8761
-  api-gateway:
-    build: api-gateway
-
+        
   slerp-io-api:
     build: slerp-io-api
     ports:
+      - 38289:38289
+  slerp-oauth-api:
+    build: slerp-oauth-api
+    ports: 
       - 8019:8019

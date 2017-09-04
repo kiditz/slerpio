@@ -1,19 +1,23 @@
-spring:
-    application:
-        name: slerp-io
-    cloud:
-        config:
-            server:
-                bootstrap: true
-                git:
-                    uri: https://github.com/kiditz/slerpio.git
-                    searchPaths: 'config, config/{application}'
-                    cloneOnStart: true
-                    basedir: 'target/config'
-
 ---
 spring:
-    profiles: heroku
-eureka:
-    instance:
-        hostname: belajar-springcloud-configsvr.herokuapp.com
+  profiles: docker
+  application:
+    name: slerp-io
+  cloud:
+    config:
+      uri: http://config-server:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+---      
+spring:
+  profiles: dev
+  application:
+    name: slerp-io
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user      
+      
