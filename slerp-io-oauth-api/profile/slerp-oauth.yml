@@ -1,0 +1,68 @@
+---
+spring: 
+  profiles: docker
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://pg_test:5432/oauth
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kiditzbastara@gmail.com
+    password: NullPointerException
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+server:
+  port: 8019
+  session:
+    cookie:
+      name: AUTHSERVER
+---
+spring: 
+  profiles: dev
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: rioters7
+    url: jdbc:postgresql://localhost:5432/oauth
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kiditzbastara@gmail.com
+    password: NullPointerException
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+server:
+  port: 8019
+  session:
+    cookie:
+      name: AUTHSERVER

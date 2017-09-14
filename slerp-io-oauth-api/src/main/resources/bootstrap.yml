@@ -1,0 +1,11 @@
+spring:
+  profiles: docker
+  application:
+    name: slerp-oauth
+  cloud:
+    consul:
+      host: ${CONSUL_SERVER}
+      port: 8500
+      config:
+        fail-fast: true
+        format: yaml

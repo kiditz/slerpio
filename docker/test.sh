@@ -1,0 +1,3 @@
+n=$data
+
+echo ${n}
