@@ -83,7 +83,8 @@ public class Oauth2Cofig {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/activateUser", "/register", "/health").permitAll().anyRequest().authenticated();
+			http.authorizeRequests().antMatchers("/activateUser", "/register", "/health").permitAll().anyRequest()
+					.authenticated();
 		}
 
 		@Override
