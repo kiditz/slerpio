@@ -1,0 +1,7 @@
+{
+  "packageRepo" : "org.slerpio.oauth.repository",
+  "packageService" : "org.slerpio.oauth.service.oauth2",
+  "enablePrepare" : true,
+  "packageEntity" : "org.slerpio.oauth.entity",
+  "packageController" : "org.slerpio.oauth.controller"
+}
