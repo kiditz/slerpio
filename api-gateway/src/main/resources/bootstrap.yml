@@ -1,24 +1,25 @@
-spring:
-    application:
-        name: gateway
-    cloud:
-        config:
-            failFast: true
-            discovery:
-                enabled: true
-                serviceId: configsvr
-
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8016/eureka/,http://localhost:8017/eureka/
-
 ---
 spring:
-    profiles: heroku
-eureka:
-    instance:
-        hostname: belajar-springcloud-apigw.herokuapp.com
-    client:
-        serviceUrl:
-            defaultZone: https://belajar-springcloud-discovery1.herokuapp.com/eureka/,https://belajar-springcloud-discovery2.herokuapp.com/eureka/
+  profiles: docker
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: ${CONSUL_SERVER:localhost}
+      port: 8500
+      config:
+        fail-fast: true
+        format: yaml
+---      
+spring:
+  profiles: dev
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: ${CONSUL_SERVER:localhost}
+      port: 8500
+      config:
+        fail-fast: true
+        format: yaml
+      

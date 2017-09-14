@@ -1,66 +1,36 @@
-version: '2.1'
+version: '3'
 services:
-  pg_test:
-    image: slerp.io/slerp/postgres-multi-db
+  # postgres:
+  #   image: slerpio/postgres
+  #   ports:
+  #     - "5432:5432/tcp"    
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready"]
+  #     interval: 30s
+  #     timeout: 30s
+  #     retries: 3
+  #   environment:
+  #     - POSTGRES_DATABASE=slerp
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=1234
+  #   volumes:
+  #     - slerp_data_vol:/data/db
+  #   networks: 
+  #     - slerp_overlay_net    
+  # activemq:
+  #   image: rmohr/activemq:5.11.1          
+  #   ports:
+  #     - "61616:61616"
+  #     - "8161:8161" 
+  slerp-io-oauth-api:
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=slerp,oauth
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
-
-  activemq:
-    image: rmohr/activemq:5.11.1
-    ports:
-      - "61616:61616"
-      - "8161:8161"
-                
-  config-server:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: slerp/slerp-config
-    restart: always
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'
-  
-  discovery-service:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: slerp/slerp-discovery-service
-    restart: always
-    depends_on:
-      config-server:
-        condition: service_healthy
-    ports:
-    - 8761:8761
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'
-  
-  slerp-io-api:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      CONSUL_SERVER: http://172.17.0.1
       SPRING_PROFILES_ACTIVE: docker
-    image: slerp/slerp-io-api
-    restart: always    
-    depends_on:
-      config-server:
-        condition: service_healthy    
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'
-  
-  slerp-oauth-api:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      SPRING_PROFILES_ACTIVE: docker
-    image: slerp/slerp-oauth-api
-    restart: always    
-    depends_on:
-      config-server:
-        condition: service_healthy    
+    ports:      
+      - "8019:8019"
+    build: slerp-io-oauth-api
+    image: slerp/slerp-oauth-api    
+    restart: always
     logging:
       options:
         max-size: 10m

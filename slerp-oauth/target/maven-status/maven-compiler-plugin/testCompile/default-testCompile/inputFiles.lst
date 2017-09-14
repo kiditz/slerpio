@@ -1,8 +1,0 @@
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/FindClientByClientIdTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/Sha256Test.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/GetAuthorityByUsernameTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/EditUserPrincipalTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/AddUserPrincipalTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/RemoveUserPrincipalTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/FindUserPrincipalByUsernameTest.java
-/home/kiditz/slerp-git/slerpio/slerp-oauth/src/test/java/org/slerp/oauth/service/oauth2/test/AddClientTest.java

@@ -11,9 +11,4 @@ CREATE TABLE IF NOT EXISTS school
   postal_code character varying(11),
   build_at date,
   CONSTRAINT schoo_pk PRIMARY KEY (school_id)
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE school
-  OWNER TO postgres;

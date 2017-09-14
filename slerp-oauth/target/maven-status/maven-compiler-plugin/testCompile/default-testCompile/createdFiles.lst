@@ -1,8 +1,0 @@
-org/slerp/oauth/service/oauth2/test/AddClientTest.class
-org/slerp/oauth/service/oauth2/test/Sha256Test.class
-org/slerp/oauth/service/oauth2/test/RemoveUserPrincipalTest.class
-org/slerp/oauth/service/oauth2/test/FindUserPrincipalByUsernameTest.class
-org/slerp/oauth/service/oauth2/test/FindClientByClientIdTest.class
-org/slerp/oauth/service/oauth2/test/GetAuthorityByUsernameTest.class
-org/slerp/oauth/service/oauth2/test/AddUserPrincipalTest.class
-org/slerp/oauth/service/oauth2/test/EditUserPrincipalTest.class

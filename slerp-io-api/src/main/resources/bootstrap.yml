@@ -4,20 +4,22 @@ spring:
   application:
     name: slerp-io
   cloud:
-    config:
-      uri: http://config-server:8888
-      fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user
+    consul:
+      host: http://192.168.99.100
+      port: 8500
+      config:
+        fail-fast: true
+        format: yaml
 ---      
 spring:
   profiles: dev
   application:
     name: slerp-io
   cloud:
-    config:
-      uri: http://localhost:8888
-      fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user      
+    consul:
+      host: ${CONSUL_SERVER:http://192.168.99.100}
+      port: 8500
+      config:
+        fail-fast: true
+        format: yaml
       

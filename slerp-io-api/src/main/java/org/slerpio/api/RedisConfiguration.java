@@ -1,5 +1,6 @@
 package org.slerpio.api;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -21,11 +22,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 public class RedisConfiguration extends CachingConfigurerSupport {
+	@Value("${redis.hostname}")
+	String redisHostName;
+	@Value("${redis.port}")
+	int redisPort;
+	
 	@Bean
 	public JedisConnectionFactory jedisConnectionFactory() {
 		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-		jedisConnectionFactory.setHostName("127.0.0.1");
-		jedisConnectionFactory.setPort(6379);
+		jedisConnectionFactory.setHostName(redisHostName);
+		jedisConnectionFactory.setPort(redisPort);
 		return jedisConnectionFactory;
 	}
 
@@ -45,7 +51,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
 	public RedisCacheManager cacheManager() {
 		RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate());
 		redisCacheManager.setTransactionAware(true);
-		redisCacheManager.setLoadRemoteCachesOnStartup(false);
+		redisCacheManager.setLoadRemoteCachesOnStartup(true);
 		redisCacheManager.setUsePrefix(true);
 		return redisCacheManager;
 	}
@@ -57,7 +63,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
 		return (o, method, objects) -> {
 			StringBuilder sb = new StringBuilder();
 			sb.append(o.getClass().getName());
-			sb.append(method.getName());			
+			sb.append(method.getName());
 			for (Object obj : objects) {
 				sb.append(obj.toString());
 			}

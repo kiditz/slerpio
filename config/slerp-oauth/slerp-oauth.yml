@@ -1,14 +1,17 @@
-server:
-    port: 8019
-    session:
-        cookie:
-            name: AUTHSERVER
-spring:
+---
+spring: 
+  profiles: docker
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   datasource:
     driverClassName: org.postgresql.Driver
-    username: postgres
+    username: kiditz
     password: rioters7
-    url: jdbc:postgresql://pg_test:5432/oauth
+    url: jdbc:postgresql://192.168.1.100:2270/oauth
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -24,3 +27,8 @@ spring:
           connectiontimeout: 10000
           timeout: 10000
           writetimeout: 10000
+server:
+  port: 8019
+  session:
+    cookie:
+      name: AUTHSERVER

@@ -1,9 +1,5 @@
 CREATE SEQUENCE activity_seq START WITH 1;
 
--- Table: activity
-
--- DROP TABLE activity;
-
 CREATE TABLE activity
 (
   activity_id bigint NOT NULL DEFAULT nextval('activity_seq'::regclass),

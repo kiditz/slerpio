@@ -1,17 +1,6 @@
 version: '2.1'
 services:  
-  config-server: 
-    build: config-server
-    ports:
-      - 8888:8888
-  discovery-service:
-    build: discovery-service
-        
-  slerp-io-api:
-    build: slerp-io-api
-    ports:
-      - 38289:38289
-  slerp-oauth-api:
-    build: slerp-oauth-api
+  slerp-io-oauth-api:
+    build: slerp-io-oauth-api
     ports: 
       - 8019:8019
