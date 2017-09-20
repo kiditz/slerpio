@@ -1,7 +1,9 @@
 package org.slerpio.oauth;
 
+import java.io.IOException;
 import java.security.KeyPair;
 
+import org.slerp.core.utils.StreamUtils;
 import org.slerpio.oauth.security.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -70,8 +73,8 @@ public class Oauth2Cofig {
 		@Bean
 		public JwtAccessTokenConverter jwtAccessTokenConverter() {
 			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-			KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"),
-					"RIFKYADITYABASTARA".toCharArray()).getKeyPair("jwt");
+			KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "kiditz".toCharArray())
+					.getKeyPair("jwt");
 			converter.setKeyPair(keyPair);
 			return converter;
 		}
@@ -83,13 +86,30 @@ public class Oauth2Cofig {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/activateUser", "/register", "/health").permitAll().anyRequest()
+			http.authorizeRequests().antMatchers("/activateUser", "/register", "/login").permitAll().anyRequest()
 					.authenticated();
 		}
 
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 			resources.resourceId(resourceId);
+		}
+
+		@Bean
+		public JwtAccessTokenConverter accessTokenConverter() {
+			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+			Resource resource = new ClassPathResource("public.txt");
+			String publicKey = null;
+			try {
+				publicKey = StreamUtils.copyStreamToString(resource.getInputStream(), 512);
+			} catch (final IOException e) {
+				throw new RuntimeException(e);
+			}
+			if (log.isDebugEnabled()) {
+				log.debug("Using public key \n: {}", publicKey);
+			}
+			converter.setVerifierKey(publicKey);
+			return converter;
 		}
 	}
 }

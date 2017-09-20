@@ -13,9 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 @Service
-@KeyValidation({ "schoolName", "page", "size" })
-@NumberValidation()
-@NotBlankValidation({ "page", "size" })
+@KeyValidation({ "name", "page", "size" })
+@NumberValidation({})
+@NotBlankValidation({})
 public class GetSchoolByName extends DefaultBusinessFunction {
 
 	@Autowired
@@ -25,7 +25,7 @@ public class GetSchoolByName extends DefaultBusinessFunction {
 	public Domain handle(Domain schoolDomain) {
 		int page = schoolDomain.getInt("page");
 		int size = schoolDomain.getInt("size");
-		Page<School> schoolPage = schoolRepository.getSchoolByName(schoolDomain.getString("schoolName").toUpperCase(),
+		Page<School> schoolPage = schoolRepository.getSchoolByName(schoolDomain.getString("name"),
 				new PageRequest(page, size));
 		return new Domain().put("schoolPage", schoolPage);
 	}

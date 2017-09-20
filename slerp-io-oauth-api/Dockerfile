@@ -1,4 +1,4 @@
-FROM java:8-jre
+FROM openjdk:8-jdk-alpine
 MAINTAINER kiditz <kiditzbastara@gmail.com>
 
 ADD ./target/slerp-io-oauth-api.jar /app/

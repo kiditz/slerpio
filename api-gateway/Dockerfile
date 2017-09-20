@@ -1,7 +1,6 @@
-FROM openjdk
-MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
+FROM openjdk:8-jdk-alpine
+MAINTAINER kiditz <kiditzbastara@gmail.com>
 
-ADD ./target/api-gateway-0.0.1-SNAPSHOT.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/api-gateway-0.0.1-SNAPSHOT.jar"]
-
-EXPOSE 4000
+ADD ./target/api-gateway.jar /app/
+CMD ["java", "-Xmx200m", "-jar", "/app/api-gateway.jar"]
+EXPOSE 38289

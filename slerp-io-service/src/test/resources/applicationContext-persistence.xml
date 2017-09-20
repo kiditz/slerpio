@@ -9,13 +9,6 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<!-- Configures the database connection. -->
-	<!--<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="${spring.database.driverClassName}" />
-		<property name="jdbcUrl" value="${spring.datasource.url}" />
-		<property name="username" value="${spring.datasource.username}" />
-		<property name="password" value="${spring.datasource.password}" />
-	</bean>-->
 	<bean id="dataSource"
 	    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	    <property name="driverClassName" value="${spring.database.driverClassName}" />
@@ -59,5 +52,5 @@
 			</props>
 		</property>
 	</bean>
-	<jpa:repositories base-package="org.slerp.oauth.repository" />
+	<jpa:repositories base-package="org.slerpio.repository" />
 </beans>

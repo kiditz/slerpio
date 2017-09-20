@@ -14,13 +14,11 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
 import javax.persistence.Basic;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
-import java.util.List;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
-import org.slerpio.entity.Student;
-import org.slerpio.entity.Task;
 
 @Entity
 @Table(name = "school_class")
@@ -33,22 +31,26 @@ public class SchoolClass {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHOOL_CLASS_SEQ")
 	@SequenceGenerator(name = "SCHOOL_CLASS_SEQ", sequenceName = "school_class_seq", initialValue = 1, allocationSize = 1)
 	private Long schoolClassId;
-	@Column(name = "name")
+	@Column(name = "class_title")
 	@Size(min = 1, max = 60)
-	private String name;
-	@Column(name = "description")
+	private String classTitle;
+	@Column(name = "class_code")
+	@Size(min = 1, max = 60)
+	private String classCode;
+	@Column(name = "created_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.SchoolClass.description")
-	private String description;
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
-	private School schoolId;
+	@NotNull(message = "org.slerpio.entity.SchoolClass.createdAt")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+	@Column(name = "last_update")
+	@Basic(optional = false)
+	@NotNull(message = "org.slerpio.entity.SchoolClass.lastUpdate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "classId")
-	private List<Student> studentList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolClassId")
-	private List<Task> taskList;
+	@ManyToOne
+	@JoinColumn(name = "profile_id", referencedColumnName = "profile_id")
+	private Profile profileId;
 
 	@JsonProperty
 	public Long getSchoolClassId() {
@@ -60,45 +62,47 @@ public class SchoolClass {
 	}
 
 	@JsonProperty
-	public String getName() {
-		return name;
+	public String getClassTitle() {
+		return classTitle;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setClassTitle(String classTitle) {
+		this.classTitle = classTitle;
 	}
 
 	@JsonProperty
-	public String getDescription() {
-		return description;
+	public String getClassCode() {
+		return classCode;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
 	}
 
-	//@JsonProperty
-	public School getSchoolId() {
-		return schoolId;
+	@JsonProperty
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setSchoolId(School schoolId) {
-		this.schoolId = schoolId;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public List<Student> getStudentList() {
-		return studentList;
+	@JsonProperty
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
 
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
-	public List<Task> getTaskList() {
-		return taskList;
+	@JsonProperty
+	public Profile getProfileId() {
+		return profileId;
 	}
 
-	public void setTaskList(List<Task> taskList) {
-		this.taskList = taskList;
+	public void setProfileId(Profile profileId) {
+		this.profileId = profileId;
 	}
 }

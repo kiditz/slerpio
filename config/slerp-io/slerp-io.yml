@@ -1,15 +1,23 @@
-spring:
+---
+kafka: 
+  address: 172.17.0.1:9092
+  groupId: slerp
+  messages: 
+    register: slerp_register
+flyway:
+    enabled: false
+spring: 
+  profiles: docker
   jpa:
     database: POSTGRESQL
     show-sql: true
     hibernate:
       ddl-auto: none
   datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5432/slerp-io
-    username: postgres
-    password: rioters7
     driverClassName: org.postgresql.Driver
+    username: kiditz
+    password: rioters7
+    url: jdbc:postgresql://172.17.0.1:2070/slerpio  
   mail:
     host: smtp.gmail.com
     port: 587
@@ -22,13 +30,11 @@ spring:
             enable: true
             required: true
           auth: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
-  activemq:
-    user: admin
-    password: admin
-    broker-url: tcp://localhost:61616
-slerp:
-  oauth: 
-    url: http://localhost:8019/
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+server:
+  port: 8020
+
+redis: 
+  hostname: localhost

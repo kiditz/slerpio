@@ -5,7 +5,6 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slerp.core.component.ReactiveHandler;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 @Configuration
-@EnableAutoConfiguration
 @EntityScan(basePackages = { "org.slerpio.entity" })
 @EnableJpaRepositories(basePackages = { "org.slerpio.repository" })
 @EnableTransactionManagement

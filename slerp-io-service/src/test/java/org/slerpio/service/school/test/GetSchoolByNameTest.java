@@ -1,5 +1,6 @@
 package org.slerpio.service.school.test;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,14 +37,33 @@ public class GetSchoolByNameTest extends AbstractTransactionalJUnit4SpringContex
 
 	@Test
 	public void testSuccess() {
-		String schoolName = "SMA";
-		Long page = 0l;
-		Long size = 10l;
+		String name = "SMAN 95 JAKARTA";
+		Integer size = 10;
+		Integer page = 0;
 		Domain schoolDomain = new Domain();
-		schoolDomain.put("schoolName", schoolName);
-		schoolDomain.put("page", page);
+		schoolDomain.put("name", name);
 		schoolDomain.put("size", size);
+		schoolDomain.put("page", page);
 		Domain outputSchool = getSchoolByName.handle(schoolDomain);
-		log.info("Result Test {}", outputSchool);		
+		log.info("Result Test {}", outputSchool);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("size")).isEqualTo(size);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("number")).isEqualTo(page);
+	}
+
+	@Test
+	public void testIfNotFound() {
+		String name = "Kiditz Ganteng";
+		Integer size = 10;
+		Integer page = 0;
+		Domain schoolDomain = new Domain();
+		schoolDomain.put("name", name);
+		schoolDomain.put("size", size);
+		schoolDomain.put("page", page);
+		Domain outputSchool = getSchoolByName.handle(schoolDomain);
+		log.info("Result Test {}", outputSchool);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("size")).isEqualTo(size);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("number")).isEqualTo(page);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("numberOfElements")).isEqualTo(page);
+		Assertions.assertThat(outputSchool.getDomain("schoolPage").getList("content")).isEmpty();;
 	}
 }

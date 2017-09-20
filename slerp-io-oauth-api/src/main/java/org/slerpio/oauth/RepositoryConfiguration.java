@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan(basePackages = { "org.slerpio.oauth.entity" })
 @EnableJpaRepositories(basePackages = { "org.slerpio.oauth.repository" })
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "org.slerpio.oauth.service", "org.slerp.aouthio.security" })
+@ComponentScan(basePackages = { "org.slerpio.oauth.service", "org.slerpio.aouth.security", "org.slerpio.oauth.listener" })
 public class RepositoryConfiguration {
-
+    
 }

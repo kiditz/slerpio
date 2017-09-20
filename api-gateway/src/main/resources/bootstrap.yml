@@ -10,16 +10,3 @@ spring:
       config:
         fail-fast: true
         format: yaml
----      
-spring:
-  profiles: dev
-  application:
-    name: gateway
-  cloud:
-    consul:
-      host: ${CONSUL_SERVER:localhost}
-      port: 8500
-      config:
-        fail-fast: true
-        format: yaml
-      

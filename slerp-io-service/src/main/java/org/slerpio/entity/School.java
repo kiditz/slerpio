@@ -1,28 +1,27 @@
 package org.slerpio.entity;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.List;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import org.slerpio.entity.Profile;
 
 @Entity
 @Table(name = "school")
@@ -40,33 +39,30 @@ public class School {
 	@NotNull(message = "org.slerpio.entity.School.name")
 	@Size(min = 1, max = 60)
 	private String name;
+	@Column(name = "address")
+	private String address;
 	@Column(name = "description")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.description")
 	private String description;
 	@Column(name = "latitude")
 	private BigDecimal latitude;
 	@Column(name = "longitude")
 	private BigDecimal longitude;
-	@Column(name = "address")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.address")
-	private String address;
-	@Column(name = "postal_code")
-	@Size(min = 1, max = 11)
-	private String postalCode;
 	@Column(name = "build_at")
 	@Temporal(TemporalType.DATE)
 	private Date buildAt;
+	@Column(name = "created_at")
+	@Basic(optional = false)
+	@NotNull(message = "org.slerpio.entity.School.createdAt")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+	@Column(name = "last_update")
+	@Basic(optional = false)
+	@NotNull(message = "org.slerpio.entity.School.lastUpdate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
-	private List<SchoolClass> schoolClassList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
-	private List<Student> studentList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
-	private List<Teacher> teacherList;
+	private List<Profile> profileList;
 
 	@JsonProperty
 	public Long getSchoolId() {
@@ -84,6 +80,15 @@ public class School {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@JsonProperty
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@JsonProperty
@@ -114,24 +119,6 @@ public class School {
 	}
 
 	@JsonProperty
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	@JsonProperty
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	@JsonProperty
 	public Date getBuildAt() {
 		return buildAt;
 	}
@@ -140,27 +127,29 @@ public class School {
 		this.buildAt = buildAt;
 	}
 
-	public List<SchoolClass> getSchoolClassList() {
-		return schoolClassList;
+	@JsonProperty
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setSchoolClassList(List<SchoolClass> schoolClassList) {
-		this.schoolClassList = schoolClassList;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public List<Student> getStudentList() {
-		return studentList;
+	@JsonProperty
+	public Date getLastUpdate() {
+		return lastUpdate;
 	}
 
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
-	public List<Teacher> getTeacherList() {
-		return teacherList;
+	public List<Profile> getProfileList() {
+		return profileList;
 	}
 
-	public void setTeacherList(List<Teacher> teacherList) {
-		this.teacherList = teacherList;
+	public void setProfileList(List<Profile> profileList) {
+		this.profileList = profileList;
 	}
 }

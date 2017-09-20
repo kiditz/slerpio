@@ -1,23 +1,9 @@
----
 spring:
-  profiles: docker
   application:
     name: slerp-io
   cloud:
     consul:
-      host: http://192.168.99.100
-      port: 8500
-      config:
-        fail-fast: true
-        format: yaml
----      
-spring:
-  profiles: dev
-  application:
-    name: slerp-io
-  cloud:
-    consul:
-      host: ${CONSUL_SERVER:http://192.168.99.100}
+      host: ${CONSUL_SERVER:http://localhost}
       port: 8500
       config:
         fail-fast: true

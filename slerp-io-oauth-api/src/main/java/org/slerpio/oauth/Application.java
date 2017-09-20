@@ -4,11 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author kiditz
+ * @author kiditz 
+ * @since Saturday 16 September 2017
  */
 @SpringBootApplication
-//@EnableDiscoveryClient
-public class Application {	
+public class Application {
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

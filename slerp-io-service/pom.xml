@@ -73,15 +73,13 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-
-		</dependency>
+		</dependency>		
 		<dependency>
-			<groupId>com.nitorcreations</groupId>
-			<artifactId>junit-runners</artifactId>
-			<version>1.3</version>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
 			<scope>test</scope>
+			<version>1.8.0.10</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -174,8 +172,8 @@
 				<artifactId>slerp-maven-plugin</artifactId>
 				<version>1.0.0</version>
 				<configuration>
-					<properties>${project.basedir}/src/test/resources/application.properties</properties>
-					<apiDir>/home/kiditz/slerp-git/web-workspace-2017/slerp-io-api/src/main/java</apiDir>
+					<properties>${project.basedir}/src/test/resources/config.properties</properties>
+					<apiDir>/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java</apiDir>
 				</configuration>
 			</plugin>
 		</plugins>

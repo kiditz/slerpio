@@ -35,13 +35,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		//web.ignoring().antMatchers("/register", "/activateUser");
+		// web.ignoring().antMatchers("/register", "/activateUser");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated().and()
-				.httpBasic().and().csrf().disable();
+		http.csrf().disable().cors().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll();
 	}
 
 	@Override
