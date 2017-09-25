@@ -4,7 +4,6 @@ import static org.slerpio.SlerpIOConstant.BASE_DIR;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.slerp.core.Domain;
@@ -43,6 +42,8 @@ public class ProfileController {
 
 	@Value("${kafka.messages.edit_user}")
 	private String editUser;
+	@Autowired
+	private BusinessFunction isProfileExistByUsername;
 
 	@PostMapping("/profile")
 	@ResponseBody
@@ -63,7 +64,16 @@ public class ProfileController {
 		log.debug("Response Find Profile : {}", outputDto);
 		return outputDto;
 	}
-
+	@GetMapping("/username-exists")
+	@ResponseBody
+	public Domain isProfileExistByUsername(@RequestParam("username") String username) {
+		log.debug("Username : {}", username);
+		Domain profileDomain = new Domain();
+		profileDomain.put("username", username);
+		Domain outputDto = isProfileExistByUsername.handle(profileDomain);
+		log.debug("Response Find Profile : {}", outputDto);
+		return outputDto;
+	}
 	@PostMapping("/photo_profile")
 	@ResponseBody
 	public Domain editPhotoProfile(@RequestBody Domain profileDomain) {

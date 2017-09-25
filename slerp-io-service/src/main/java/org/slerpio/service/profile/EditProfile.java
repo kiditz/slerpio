@@ -1,6 +1,6 @@
 package org.slerpio.service.profile;
 
-import static org.slerpio.SlerpIOConstant.Exception.PROFILE_NOT_FOUND;
+import static org.slerpio.SlerpIOConstant.Exception.*;
 
 import java.util.Date;
 
@@ -31,11 +31,15 @@ public class EditProfile extends DefaultBusinessTransaction {
 
 	@Override
 	public void prepare(Domain profileDomain) throws Exception {
-
-		Profile profile = profileRepository.findProfileByUsername(profileDomain.getString("oldUsername"));
+		String newUsername = profileDomain.getString("newUsername");
+		String oldUsername = profileDomain.getString("oldUsername");
+		if (profileRepository.isProfileExistByUsername(newUsername))
+			throw new CoreException(USERNAME_HAS_BEEN_USED);
+		Profile profile = profileRepository.findProfileByUsername(oldUsername);
 		if (profile == null) {
 			throw new CoreException(PROFILE_NOT_FOUND);
 		}
+
 		profile.setLastUpdate(new Date());
 		profile.setUsername(profileDomain.getString("newUsername"));
 		profile.setEmail(profileDomain.getString("email"));
@@ -50,8 +54,9 @@ public class EditProfile extends DefaultBusinessTransaction {
 	public Domain handle(Domain profileDomain) {
 		super.handle(profileDomain);
 		try {
-			Profile profile = profileDomain.getDomain("profile").convertTo(Profile.class);			
+			Profile profile = profileDomain.getDomain("profile").convertTo(Profile.class);
 			profile = profileRepository.save(profile);
+			profileDomain.clear();
 			return new Domain(profile);
 		} catch (Exception e) {
 			throw new CoreException(e);

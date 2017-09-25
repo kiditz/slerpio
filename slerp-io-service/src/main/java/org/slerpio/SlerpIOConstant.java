@@ -25,5 +25,6 @@ public class SlerpIOConstant {
 		static public String FAILED_TO_WRITE_FILE = "failed to write file @:";
 		static public final String SCHOOL_NOT_FOUND = "org.slerpio.entity.School.notFound";
 		static public final String PROFILE_NOT_FOUND = "org.slerpio.entity.Profile.notFound";
+		static public final String USERNAME_HAS_BEEN_USED = "username.has.used";
 	}
 }
