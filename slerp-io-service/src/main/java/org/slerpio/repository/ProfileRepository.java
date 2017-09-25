@@ -12,4 +12,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
 	@Query("SELECT COUNT(p) FROM Profile p WHERE p.schoolId.schoolId = :schoolId")
 	public Long countProfileBySchoolId(@Param("schoolId") Long schoolId);
+
+	@Query("SELECT CASE WHEN COUNT(p) > 0 THEN true else false END FROM Profile p WHERE p.username = :username")
+	public Boolean isProfileExistByUsername(@Param("username") String username);
 }
