@@ -1,5 +1,7 @@
 package org.slerpio.service.profile;
 
+import static org.slerpio.SlerpIOConstant.Exception.PROFILE_NOT_FOUND;
+
 import java.util.Date;
 
 import org.slerp.core.CoreException;
@@ -8,7 +10,6 @@ import org.slerp.core.business.DefaultBusinessTransaction;
 import org.slerp.core.validation.EmailValidation;
 import org.slerp.core.validation.KeyValidation;
 import org.slerp.core.validation.NotBlankValidation;
-import org.slerp.core.validation.NumberValidation;
 import org.slerpio.entity.Profile;
 import org.slerpio.repository.ProfileRepository;
 import org.slerpio.repository.SchoolRepository;
@@ -18,9 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@KeyValidation({ "profileId", "username", "email", "phoneNumber", "fullname", "imagePath", "address" })
-@NotBlankValidation({ "username", "email", "phoneNumber" })
-@NumberValidation("profileId")
+@KeyValidation({ "oldUsername", "newUsername", "email", "phoneNumber", "fullname", "imagePath", "address" })
+@NotBlankValidation({ "oldUsername", "newUsername", "email", "phoneNumber" })
 @EmailValidation("email")
 public class EditProfile extends DefaultBusinessTransaction {
 
@@ -32,18 +32,25 @@ public class EditProfile extends DefaultBusinessTransaction {
 	@Override
 	public void prepare(Domain profileDomain) throws Exception {
 
-		Profile profile = profileRepository.findOne(profileDomain.getLong("profileId"));
+		Profile profile = profileRepository.findProfileByUsername(profileDomain.getString("oldUsername"));
 		if (profile == null) {
-			throw new CoreException("org.slerpio.entity.Profile.notFound");
+			throw new CoreException(PROFILE_NOT_FOUND);
 		}
+		profile.setLastUpdate(new Date());
+		profile.setUsername(profileDomain.getString("newUsername"));
+		profile.setEmail(profileDomain.getString("email"));
+		profile.setPhoneNumber(profileDomain.getString("phoneNumber"));
+		profile.setFullname(profileDomain.getString("fullname"));
+		profile.setImagePath(profileDomain.getString("imagePath"));
+		profile.setAddress(profileDomain.getString("address"));
+		profileDomain.put("profile", profile);
 	}
 
 	@Override
 	public Domain handle(Domain profileDomain) {
 		super.handle(profileDomain);
 		try {
-			Profile profile = profileDomain.convertTo(Profile.class);
-			profile.setLastUpdate(new Date());
+			Profile profile = profileDomain.getDomain("profile").convertTo(Profile.class);			
 			profile = profileRepository.save(profile);
 			return new Domain(profile);
 		} catch (Exception e) {

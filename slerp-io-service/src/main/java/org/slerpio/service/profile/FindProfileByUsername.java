@@ -22,7 +22,7 @@ public class FindProfileByUsername extends DefaultBusinessFunction {
 		Profile profile = profileRepository.findProfileByUsername(profileDomain.getString("username"));
 		if (profile == null)
 			throw new CoreException(PROFILE_NOT_FOUND);
-		profile.setSchoolId(null);
+		//profile.setSchoolId(null);
 		return new Domain().put("profile", profile);
 	}
 }

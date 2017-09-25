@@ -1,9 +1,9 @@
-package org.slerpio.service.profile.test;
+package org.slerpio.service.school.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slerp.core.Domain;
-import org.slerp.core.business.BusinessTransaction;
+import org.slerp.core.business.BusinessFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,50 +24,29 @@ import org.assertj.core.api.Assertions;
 		TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class EditProfileTest
+public class CountProfileBySchoolIdTest
 		extends
 			AbstractTransactionalJUnit4SpringContextTests {
 
-	static private Logger log = LoggerFactory.getLogger(EditProfileTest.class);
+	static private Logger log = LoggerFactory
+			.getLogger(CountProfileBySchoolIdTest.class);
 	@Autowired
-	BusinessTransaction editProfile;
+	BusinessFunction countProfileBySchoolId;
 
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/service/profile/test/EditProfileTest.sql",
+				"classpath:org/slerpio/service/school/test/CountProfileBySchoolIdTest.sql",
 				false);
 	}
 
 	@Test
 	public void testSuccess() {
-		String phoneNumber = "087788044374";
-		String oldUsername = "kiditz";
-		String email = "kiditzbastara@gmail.com";
-		String imagePath = "default.png";
-		String newUsername = "rifky";
-		String fullname = "Rifky Aditya Bastara";
-		String address = "jakarta";
+		Long schoolId = 1l;
 		Domain profileDomain = new Domain();
-		profileDomain.put("phoneNumber", phoneNumber);
-		profileDomain.put("address", address);
-		profileDomain.put("oldUsername", oldUsername);
-		profileDomain.put("email", email);
-		profileDomain.put("imagePath", imagePath);
-		profileDomain.put("newUsername", newUsername);
-		profileDomain.put("fullname", fullname);
-		Domain outputProfile = editProfile.handle(profileDomain);
+		profileDomain.put("schoolId", schoolId);
+		Domain outputProfile = countProfileBySchoolId.handle(profileDomain);
+		Assertions.assertThat(outputProfile.getLong("counter")).isEqualTo(2l);
 		log.info("Result Test {}", outputProfile);
-		Assertions.assertThat(profileDomain.get("phoneNumber")).isEqualTo(
-				phoneNumber);
-		Assertions.assertThat(profileDomain.get("oldUsername")).isEqualTo(
-				oldUsername);
-		Assertions.assertThat(profileDomain.get("email")).isEqualTo(email);
-		Assertions.assertThat(profileDomain.get("imagePath")).isEqualTo(
-				imagePath);
-		Assertions.assertThat(profileDomain.get("newUsername")).isEqualTo(
-				newUsername);
-		Assertions.assertThat(profileDomain.get("fullname"))
-				.isEqualTo(fullname);		
 	}
 }

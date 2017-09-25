@@ -1,6 +1,6 @@
 {
   "packageRepo" : "org.slerpio.repository",
-  "packageService" : "org.slerpio.service.profile",
+  "packageService" : "org.slerpio.service.school",
   "enablePrepare" : true,
   "packageEntity" : "org.slerpio.entity",
   "packageController" : "org.slerpio.api.controller"

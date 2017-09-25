@@ -9,4 +9,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
 	@Query("SELECT p FROM Profile p WHERE p.username = :username")
 	public Profile findProfileByUsername(@Param("username") String username);
+
+	@Query("SELECT COUNT(p) FROM Profile p WHERE p.schoolId.schoolId = :schoolId")
+	public Long countProfileBySchoolId(@Param("schoolId") Long schoolId);
 }
