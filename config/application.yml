@@ -1,30 +1,10 @@
-server:
-    port: ${PORT:0}
-
-spring:
-    jackson:
-        serialization:
-            indent_output: true
-logging:
-  level:
-    org.springframework.security: INFO
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
-
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://auth-service:5000/uaa/users/current
+kafka: 
+  address: 172.17.0.1:9092
+  groupId: slerp
+  messages: 
+    register: register
+    rm_user_principal: remove_user_principal
+    mail_regiter: mail_register
+    edit_user : edit_user_principal
+flyway:
+    enabled: false

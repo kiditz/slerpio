@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -23,7 +27,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 /**
@@ -39,24 +46,15 @@ public class Oauth2Cofig {
 
 	@Configuration
 	@EnableAuthorizationServer
+
 	protected class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 		@Autowired
 		@Qualifier("authenticationManagerBean")
 		private AuthenticationManager authenticationManager;
-		// private String resourceId = "slerp";
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 			log.info("ENABLE OAUTH SERVER");
-			// clients.inMemory().withClient("normal-app").authorizedGrantTypes("authorization_code",
-			// "implicit")
-			// .authorities("ROLE_CLIENT").scopes("read",
-			// "write").resourceIds(resourceId).and()
-			// clients.inMemory().withClient("trusted-app").authorizedGrantTypes("client_credentials",
-			// "password")
-			// .authorities("ROLE_TRUSTED_CLIENT").scopes("read",
-			// "write").resourceIds(resourceId)
-			// .secret("secret");
 			clients.withClientDetails(clientService);
 		}
 
@@ -80,36 +78,59 @@ public class Oauth2Cofig {
 		}
 	}
 
-	@EnableResourceServer
-	protected class Oauth2ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-		private String resourceId = "slerp";
-
-		@Override
-		public void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/activateUser", "/register", "/login").permitAll().anyRequest()
-					.authenticated();
-		}
-
-		@Override
-		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-			resources.resourceId(resourceId);
-		}
-
-		@Bean
-		public JwtAccessTokenConverter accessTokenConverter() {
-			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-			Resource resource = new ClassPathResource("public.txt");
-			String publicKey = null;
-			try {
-				publicKey = StreamUtils.copyStreamToString(resource.getInputStream(), 512);
-			} catch (final IOException e) {
-				throw new RuntimeException(e);
-			}
-			if (log.isDebugEnabled()) {
-				log.debug("Using public key \n: {}", publicKey);
-			}
-			converter.setVerifierKey(publicKey);
-			return converter;
-		}
-	}
+	//
+	// @Configuration
+	// @EnableResourceServer
+	// protected class Oauth2ResourceServerConfiguration extends
+	// ResourceServerConfigurerAdapter {
+	// private String resourceId = "slerp";
+	// @Autowired
+	// @Qualifier("authenticationManagerBean")
+	// private AuthenticationManager authenticationManager;
+	//
+	// @Override
+	// public void configure(HttpSecurity http) throws Exception {
+	// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and().authorizeRequests()
+	// .antMatchers("/login",
+	// "/authenticate").permitAll().anyRequest().authenticated();
+	// }
+	//
+	// @Override
+	// public void configure(ResourceServerSecurityConfigurer resources) throws
+	// Exception {
+	// resources.resourceId(resourceId).tokenServices(tokenServices()).stateless(false)
+	// .authenticationManager(authenticationManager);
+	// }
+	//
+	// @Bean
+	// @Primary
+	// public DefaultTokenServices tokenServices() {
+	// DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+	// defaultTokenServices.setTokenStore(tokenStore());
+	// return defaultTokenServices;
+	// }
+	//
+	// @Bean
+	// public TokenStore tokenStore() {
+	// return new JwtTokenStore(accessTokenConverter());
+	// }
+	//
+	// @Bean
+	// public JwtAccessTokenConverter accessTokenConverter() {
+	// JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+	// Resource resource = new ClassPathResource("public.txt");
+	// String publicKey = null;
+	// try {
+	// publicKey = StreamUtils.copyStreamToString(resource.getInputStream(),
+	// 512);
+	// } catch (final IOException e) {
+	// throw new RuntimeException(e);
+	// }
+	// if (log.isDebugEnabled()) {
+	// log.debug("Using public key \n: {}", publicKey);
+	// }
+	// converter.setVerifierKey(publicKey);
+	// return converter;
+	// }
+	// }
 }

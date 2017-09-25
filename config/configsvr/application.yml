@@ -1,1 +1,7 @@
-
+kafka: 
+  address: 172.17.0.1:9092
+  groupId: slerp
+  messages: 
+    register: register
+    rm_user_principal: remove_user_principal
+    

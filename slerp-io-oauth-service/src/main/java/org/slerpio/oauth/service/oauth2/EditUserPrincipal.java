@@ -1,25 +1,22 @@
 package org.slerpio.oauth.service.oauth2;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.slerp.core.Domain;
 import org.slerp.core.CoreException;
+import org.slerp.core.Domain;
+import org.slerp.core.business.DefaultBusinessTransaction;
+import org.slerp.core.validation.EmailValidation;
 import org.slerp.core.validation.KeyValidation;
 import org.slerp.core.validation.NotBlankValidation;
-import org.slerp.core.validation.NumberValidation;
+import org.slerpio.oauth.OauthConstant;
 import org.slerpio.oauth.entity.UserPrincipal;
 import org.slerpio.oauth.repository.UserPrincipalRepository;
-import org.slerp.core.validation.EmailValidation;
-import org.slerp.core.business.DefaultBusinessTransaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@KeyValidation({ "userId", "username", "password", "email", "accountNonExpired", "accountNonLocked",
-		"credentialsNonExpired", "enabled" })
-@NotBlankValidation({ "username", "password", "email", "accountNonExpired", "accountNonLocked", "credentialsNonExpired",
-		"enabled" })
-@NumberValidation("userId")
+@KeyValidation({ "oldUsername", "newUsername", "email", "enabled" })
+@NotBlankValidation({ "oldUsername", "newUsername", "email", "enabled" })
 @EmailValidation("email")
 public class EditUserPrincipal extends DefaultBusinessTransaction {
 
@@ -28,19 +25,23 @@ public class EditUserPrincipal extends DefaultBusinessTransaction {
 
 	@Override
 	public void prepare(Domain userPrincipalDomain) throws Exception {
-		UserPrincipal userPrincipal = userPrincipalRepository.findOne(userPrincipalDomain.getLong("userId"));
+		UserPrincipal userPrincipal = userPrincipalRepository
+				.findUserPrincipalByUsername(userPrincipalDomain.getString("oldUsername"));
 		if (userPrincipal == null) {
-			throw new CoreException("org.slerp.oauth.entity.UserPrincipal.notFound");
+			throw new CoreException(OauthConstant.USER_NOT_FOUND);
 		}
-		userPrincipalDomain.put("hashedPassword", userPrincipalDomain.getString("password").getBytes());
-
+		userPrincipalDomain.put("userPrincipal", userPrincipal);
 	}
 
 	@Override
 	public Domain handle(Domain userPrincipalDomain) {
 		super.handle(userPrincipalDomain);
 		try {
-			UserPrincipal userPrincipal = userPrincipalDomain.convertTo(UserPrincipal.class);
+			UserPrincipal userPrincipal = userPrincipalDomain.getDomain("userPrincipal").convertTo(UserPrincipal.class);
+			userPrincipal.setUsername(userPrincipalDomain.getString("newUsername"));
+			userPrincipal.setEnabled(userPrincipalDomain.getBoolean("enabled"));
+			userPrincipal.setEmail(userPrincipalDomain.getString("email"));
+			userPrincipal.setUserAuthorityList(null);
 			userPrincipal = userPrincipalRepository.save(userPrincipal);
 			return new Domain(userPrincipal);
 		} catch (Exception e) {

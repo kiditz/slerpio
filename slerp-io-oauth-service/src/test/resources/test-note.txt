@@ -53,22 +53,16 @@
 
 #REQUEST
 
- {
-  "userId" : 2,
-  "username" : "kiditz",
-  "hashedPassword" : "D/8A",
+ {  
+  "username" : "kiditz",  
   "email" : "kiditzbastara@gmail.com",
-  "accountNonExpired" : true,
-  "accountNonLocked" : true,
-  "credentialsNonExpired" : true,
-  "enabled" : true,
-  "userAuthorityList" : [ ],
+  "enabled" : true,  
   "password" : "rioters7"
 }
 
 #RESPONSE
 
-{
+ {
   "hashedPassword" : "cmlvdGVyczc=",
   "credentialsNonExpired" : true,
   "accountNonExpired" : true,
@@ -79,6 +73,7 @@
   "accountNonLocked" : true,
   "userAuthorityList" : [ ]
 }
+
 * FindClientByClientIdTest
 
 #REQUEST

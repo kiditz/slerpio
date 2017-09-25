@@ -10,6 +10,4 @@ public interface UserPrincipalRepository extends JpaRepository<UserPrincipal, Lo
 	@Query("SELECT u FROM UserPrincipal u WHERE u.username = :username")
 	public UserPrincipal findUserPrincipalByUsername(@Param("username") String username);
 
-	@Query("SELECT u.username FROM UserPrincipal u WHERE u.username = :username")
-	public UserPrincipal findUser(@Param("username") String username);
 }
