@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slerpio.repository.ProfileRepository;
 import org.slerp.core.Domain;
+import org.slerpio.SlerpIOConstant;
 import org.slerpio.entity.Profile;
 
 import java.util.Date;
@@ -36,6 +37,8 @@ public class AddProfile extends DefaultBusinessTransaction {
 
 	@Override
 	public void prepare(Domain profileDomain) throws Exception {
+		if (profileRepository.isProfileExistByUsername(profileDomain.getString("username")))
+			throw new CoreException(SlerpIOConstant.Exception.USERNAME_HAS_BEEN_USED);
 		Domain schoolDomain = profileDomain.getDomain("schoolId");
 		School schoolId = schoolDomain.convertTo(School.class);
 		schoolId = schoolRepository.findOne(schoolId.getSchoolId());
@@ -52,7 +55,7 @@ public class AddProfile extends DefaultBusinessTransaction {
 		super.handle(profileDomain);
 		try {
 			Profile profile = profileDomain.convertTo(Profile.class);
-			log.info("Profile To Put : {}", profile.getSchoolId().getSchoolId());			
+			log.info("Profile To Put : {}", profile.getSchoolId().getSchoolId());
 			profile = profileRepository.saveAndFlush(profile);
 			return new Domain(profile);
 		} catch (Exception e) {
