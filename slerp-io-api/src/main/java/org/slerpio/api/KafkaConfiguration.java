@@ -29,30 +29,16 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @EnableKafka
 public class KafkaConfiguration {
 	@Value("${kafka.address}")
-	private String addrress;
+	private String address;
 	@Value("${kafka.groupId}")
 	private String groupId;
 
 	public ConsumerFactory<String, Domain> consumerFactory() {
 		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, addrress);
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, this.groupId);
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Domain.class));
-	}
-
-	// Will wait and consume message after in 30 second
-	public ConsumerFactory<String, Domain> consumerFactoryScheduled() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, addrress);
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, this.groupId);
-		long awaitTime = 30 * 1000;
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, String.valueOf(awaitTime));
-		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-
 		return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Domain.class));
 	}
 
@@ -64,21 +50,14 @@ public class KafkaConfiguration {
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Domain> kafkaListenerScheduledContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, Domain> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(consumerFactoryScheduled());
-		return factory;
-	}
-
-	@Bean
 	public KafkaTemplate<String, Domain> kafkaTemplate() {
-		return new KafkaTemplate<>(producerFactory());
+		return new KafkaTemplate<String, Domain>(producerFactory());
 	}
 
 	@Bean
 	public ProducerFactory<String, Domain> producerFactory() {
 		Map<String, Object> configProps = new HashMap<>();
-		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, addrress);
+		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
 		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 		return new DefaultKafkaProducerFactory<>(configProps);

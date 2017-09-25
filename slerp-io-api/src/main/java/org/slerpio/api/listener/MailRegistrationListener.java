@@ -34,7 +34,7 @@ public class MailRegistrationListener {
 	@Autowired
 	KafkaTemplate<String, Domain> kafkaTemplate;
 
-	@KafkaListener(topics = "${kafka.messages.mail_regiter}", containerGroup = "${kafka.groupId}", containerFactory = "kafkaListenerScheduledContainerFactory")
+	@KafkaListener(topics = "${kafka.messages.mail_regiter}", containerGroup = "${kafka.groupId}")
 	public void listenToSendRegistrationMail(Domain userDomain) {
 		log.info("Send email with domain \n{}", userDomain);
 
