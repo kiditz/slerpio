@@ -55,7 +55,7 @@ public class AddProfile extends DefaultBusinessTransaction {
 		super.handle(profileDomain);
 		try {
 			Profile profile = profileDomain.convertTo(Profile.class);
-			log.info("Profile To Put : {}", profile.getSchoolId().getSchoolId());
+			log.debug("Profile To Put : {}", profile);
 			profile = profileRepository.saveAndFlush(profile);
 			return new Domain(profile);
 		} catch (Exception e) {
