@@ -22,6 +22,8 @@ import java.util.List;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import org.slerpio.entity.Profile;
+import org.slerpio.entity.Activity;
+import org.slerpio.entity.Article;
 
 @Entity
 @Table(name = "school")
@@ -62,7 +64,13 @@ public class School {
 	private Date lastUpdate;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
+	private List<Activity> activityList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
 	private List<Profile> profileList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
+	private List<Article> articleList;
 
 	@JsonProperty
 	public Long getSchoolId() {
@@ -145,11 +153,27 @@ public class School {
 		this.lastUpdate = lastUpdate;
 	}
 
+	public List<Activity> getActivityList() {
+		return activityList;
+	}
+
+	public void setActivityList(List<Activity> activityList) {
+		this.activityList = activityList;
+	}
+
 	public List<Profile> getProfileList() {
 		return profileList;
 	}
 
 	public void setProfileList(List<Profile> profileList) {
 		this.profileList = profileList;
+	}
+
+	public List<Article> getArticleList() {
+		return articleList;
+	}
+
+	public void setArticleList(List<Article> articleList) {
+		this.articleList = articleList;
 	}
 }

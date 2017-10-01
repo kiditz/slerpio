@@ -21,47 +21,49 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name = "activity")
+@Table(name = "article")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class Activity {
+public class Article {
 
 	@Id
-	@Column(name = "activity_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACTIVITY_SEQ")
-	@SequenceGenerator(name = "ACTIVITY_SEQ", sequenceName = "activity_seq", initialValue = 1, allocationSize = 1)
-	private Long activityId;
+	@Column(name = "article_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTICLE_SEQ")
+	@SequenceGenerator(name = "ARTICLE_SEQ", sequenceName = "article_seq", initialValue = 1, allocationSize = 1)
+	private Long articleId;
 	@Column(name = "title")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Activity.title")
+	@NotNull(message = "org.slerpio.entity.Article.title")
 	@Size(min = 1, max = 60)
 	private String title;
 	@Column(name = "content")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Activity.content")
+	@NotNull(message = "org.slerpio.entity.Article.content")
 	private String content;
 	@Column(name = "created_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Activity.createdAt")
+	@NotNull(message = "org.slerpio.entity.Article.createdAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@Column(name = "last_update")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Activity.lastUpdate")
+	@NotNull(message = "org.slerpio.entity.Article.lastUpdate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;
-
+	@ManyToOne
+	@JoinColumn(name = "profile_id", referencedColumnName = "profile_id")
+	private Profile profileId;
 	@ManyToOne
 	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
 	private School schoolId;
 
 	@JsonProperty
-	public Long getActivityId() {
-		return activityId;
+	public Long getArticleId() {
+		return articleId;
 	}
 
-	public void setActivityId(Long activityId) {
-		this.activityId = activityId;
+	public void setArticleId(Long articleId) {
+		this.articleId = articleId;
 	}
 
 	@JsonProperty
@@ -98,6 +100,15 @@ public class Activity {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	@JsonProperty
+	public Profile getProfileId() {
+		return profileId;
+	}
+
+	public void setProfileId(Profile profileId) {
+		this.profileId = profileId;
 	}
 
 	@JsonProperty

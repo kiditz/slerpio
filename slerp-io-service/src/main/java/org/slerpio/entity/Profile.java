@@ -1,57 +1,55 @@
 package org.slerpio.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.util.List;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
-import org.slerpio.entity.SchoolClass;
+import org.slerpio.entity.Article;
+import org.slerpio.entity.Contact;
 
 @Entity
 @Table(name = "profile")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class Profile implements Serializable {
+public class Profile {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "profile_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_SEQ")
 	@SequenceGenerator(name = "PROFILE_SEQ", sequenceName = "profile_seq", initialValue = 1, allocationSize = 1)
 	private Long profileId;
-	@Column(name = "username")
+	@Column(name = "username", length = 60)
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.Profile.username")
+	@Size(min = 1, max = 60)
 	private String username;
-	@Column(name = "email")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Profile.email")
+	@Column(name = "email", length = 60)
+	// @Basic(optional = false)
+	// @NotNull(message = "org.slerpio.entity.Profile.email")
+	// @Size(min = 1, max = 60)
 	private String email;
-	@Column(name = "phone_number")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Profile.phoneNumber")
+	@Column(name = "phone_number", length = 15)
+	//@Basic(optional = false)
+	//@NotNull(message = "org.slerpio.entity.Profile.phoneNumber")
+	//@Size(min = 1, max = 15)
 	private String phoneNumber;
 	@Column(name = "fullname")
 	private String fullname;
@@ -69,12 +67,19 @@ public class Profile implements Serializable {
 	@NotNull(message = "org.slerpio.entity.Profile.lastUpdate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdate;
+	@Column(name = "authority")
+	@Size(min = 1, max = 20)
+	private String authority;
+
 	@ManyToOne
 	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
 	private School schoolId;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profileId")
-	private List<SchoolClass> schoolClassList;
+	private List<Contact> contactList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "profileId")
+	private List<Article> articleList;
 
 	@JsonProperty
 	public Long getProfileId() {
@@ -158,6 +163,15 @@ public class Profile implements Serializable {
 	}
 
 	@JsonProperty
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	@JsonProperty
 	public School getSchoolId() {
 		return schoolId;
 	}
@@ -166,11 +180,19 @@ public class Profile implements Serializable {
 		this.schoolId = schoolId;
 	}
 
-	public List<SchoolClass> getSchoolClassList() {
-		return schoolClassList;
+	public List<Contact> getContactList() {
+		return contactList;
 	}
 
-	public void setSchoolClassList(List<SchoolClass> schoolClassList) {
-		this.schoolClassList = schoolClassList;
+	public void setContactList(List<Contact> contactList) {
+		this.contactList = contactList;
+	}
+
+	public List<Article> getArticleList() {
+		return articleList;
+	}
+
+	public void setArticleList(List<Article> articleList) {
+		this.articleList = articleList;
 	}
 }

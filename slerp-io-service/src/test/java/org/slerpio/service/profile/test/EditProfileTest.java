@@ -85,10 +85,10 @@ public class EditProfileTest extends AbstractTransactionalJUnit4SpringContextTes
 	@Test(expected = CoreException.class)
 	public void testFailUsernameNotFound() {
 		String phoneNumber = "087788044374";
-		String oldUsername = "unknown";
+		String oldUsername = "ia";
 		String email = "kiditzbastara@gmail.com";
 		String imagePath = "default.png";
-		String newUsername = "	";
+		String newUsername = "ia";
 		String fullname = "Rifky Aditya Bastara";
 		String address = "jakarta";
 		Domain profileDomain = new Domain();

@@ -3,7 +3,7 @@ package org.slerpio.service.activity.test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slerp.core.Domain;
-import org.slerp.core.business.BusinessTransaction;
+import org.slerp.core.business.BusinessFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,34 +24,34 @@ import org.assertj.core.api.Assertions;
 		TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class AddActivityTest
+public class GetActivityBySchoolIdTest
 		extends
 			AbstractTransactionalJUnit4SpringContextTests {
 
-	static private Logger log = LoggerFactory.getLogger(AddActivityTest.class);
+	static private Logger log = LoggerFactory
+			.getLogger(GetActivityBySchoolIdTest.class);
 	@Autowired
-	BusinessTransaction addActivity;
+	BusinessFunction getActivityBySchoolId;
 
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/service/activity/test/AddActivityTest.sql",
+				"classpath:org/slerpio/service/activity/test/GetActivityBySchoolIdTest.sql",
 				false);
 	}
 
 	@Test
 	public void testSuccess() {
-		String content = "Mengerjakan Pr Matematika";
-		String title = "Rifky Aditya Bastara";
-		Domain schoolId = new Domain();
-		schoolId.put("schoolId", 1l);
+		Integer page = 0;
+		Long schoolId = 1l;
+		Integer size = 10;
 		Domain activityDomain = new Domain();
-		activityDomain.put("content", content);
-		activityDomain.put("title", title);
+		activityDomain.put("page", page);
 		activityDomain.put("schoolId", schoolId);
-		Domain outputActivity = addActivity.handle(activityDomain);
+		activityDomain.put("size", size);
+		Domain outputActivity = getActivityBySchoolId.handle(activityDomain);
 		log.info("Result Test {}", outputActivity);
-		Assertions.assertThat(activityDomain.get("content")).isEqualTo(content);
-		Assertions.assertThat(activityDomain.get("title")).isEqualTo(title);
+		Assertions.assertThat(activityDomain.get("page")).isEqualTo(page);
+		Assertions.assertThat(activityDomain.get("size")).isEqualTo(size);
 	}
 }

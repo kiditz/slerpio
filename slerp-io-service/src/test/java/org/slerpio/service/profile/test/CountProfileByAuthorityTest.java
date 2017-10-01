@@ -20,33 +20,38 @@ import org.assertj.core.api.Assertions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-@TestExecutionListeners(listeners = {DirtiesContextTestExecutionListener.class,
+@TestExecutionListeners(listeners = { DirtiesContextTestExecutionListener.class,
 		TransactionalTestExecutionListener.class,
-		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
+		DependencyInjectionTestExecutionListener.class }, inheritListeners = false)
 @Rollback
-public class CountProfileBySchoolIdTest
-		extends
-			AbstractTransactionalJUnit4SpringContextTests {
+public class CountProfileByAuthorityTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-	static private Logger log = LoggerFactory
-			.getLogger(CountProfileBySchoolIdTest.class);
+	static private Logger log = LoggerFactory.getLogger(CountProfileByAuthorityTest.class);
 	@Autowired
-	BusinessFunction countProfileBySchoolId;
+	BusinessFunction countProfileByAuthority;
 
 	@Before
 	public void prepare() {
-		executeSqlScript(
-				"classpath:org/slerpio/service/profile/test/CountProfileBySchoolIdTest.sql",
-				false);
+		executeSqlScript("classpath:org/slerpio/service/profile/test/CountProfileByAuthorityTest.sql", false);
 	}
 
 	@Test
-	public void testSuccess() {
-		Long schoolId = 1l;
+	public void testCountFromAuthorityTeacher() {
+		String authority = "TEACHER";
 		Domain profileDomain = new Domain();
-		profileDomain.put("schoolId", schoolId);
-		Domain outputProfile = countProfileBySchoolId.handle(profileDomain);
-		Assertions.assertThat(outputProfile.getLong("counter")).isEqualTo(2l);
+		profileDomain.put("authority", authority);
+		Domain outputProfile = countProfileByAuthority.handle(profileDomain);
 		log.info("Result Test {}", outputProfile);
+		Assertions.assertThat(outputProfile.getLong("counter")).isEqualTo(1l);
+	}
+	
+	@Test
+	public void testCountFromAuthorityStudent() {
+		String authority = "STUDENT";
+		Domain profileDomain = new Domain();
+		profileDomain.put("authority", authority);
+		Domain outputProfile = countProfileByAuthority.handle(profileDomain);
+		log.info("Result Test {}", outputProfile);
+		Assertions.assertThat(outputProfile.getLong("counter")).isEqualTo(2l);
 	}
 }
