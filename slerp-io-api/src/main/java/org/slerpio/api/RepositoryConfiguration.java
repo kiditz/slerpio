@@ -1,5 +1,7 @@
 package org.slerpio.api;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
@@ -63,12 +66,12 @@ public class RepositoryConfiguration {
 	@Bean
 	public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
 		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
-//		List<MediaType> supportedMediaTypes = new ArrayList<>();
-//		supportedMediaTypes.add(MediaType.IMAGE_PNG);
-//		supportedMediaTypes.add(MediaType.IMAGE_JPEG);
-//		supportedMediaTypes.add(MediaType.IMAGE_GIF);
-//		supportedMediaTypes.add(MediaType.APPLICATION_PDF);		
-//		converter.setSupportedMediaTypes(supportedMediaTypes);
+		List<MediaType> supportedMediaTypes = new ArrayList<>();
+		supportedMediaTypes.add(MediaType.IMAGE_PNG);
+		supportedMediaTypes.add(MediaType.IMAGE_JPEG);
+		supportedMediaTypes.add(MediaType.IMAGE_GIF);
+		supportedMediaTypes.add(MediaType.APPLICATION_PDF);		
+		converter.setSupportedMediaTypes(supportedMediaTypes);
 		return converter;
 	}
 }

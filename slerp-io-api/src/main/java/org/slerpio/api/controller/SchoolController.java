@@ -18,8 +18,6 @@ public class SchoolController {
 	@Autowired
 	BusinessTransaction editSchool;
 	@Autowired
-	BusinessFunction countProfileBySchoolId;
-	@Autowired
 	BusinessFunction getSchoolByName;
 	@Autowired
 	BusinessTransaction addSchool;
@@ -29,14 +27,6 @@ public class SchoolController {
 	public Domain editSchool(@RequestBody Domain schoolDomain) {
 		Domain outputDto = editSchool.handle(schoolDomain);
 		return outputDto;
-	}
-
-	@GetMapping("/totalPeople")
-	@ResponseBody
-	public Domain countProfileBySchoolId(@RequestParam("schoolId") Long schoolId) {
-		Domain schoolDomain = new Domain();
-		schoolDomain.put("schoolId", schoolId);
-		return countProfileBySchoolId.handle(schoolDomain);
 	}
 
 	@GetMapping("/getSchoolByName")

@@ -1,104 +1,111 @@
 package org.slerpio.api.controller;
 
-import static org.slerpio.SlerpIOConstant.BASE_DIR;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import org.slerp.core.Domain;
+import org.springframework.web.bind.annotation.RestController;
 import org.slerp.core.business.BusinessFunction;
-import org.slerp.core.business.BusinessTransaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.util.StreamUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.slerp.core.Domain;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.slerp.core.business.BusinessTransaction;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class ProfileController {
 
 	@Autowired
+	@Qualifier("findSchoolByUsername")
+	BusinessFunction findSchoolByUsername;
+	@Autowired
+	@Qualifier("dashboardCounter")
+	BusinessFunction dashboardCounter;
+	@Autowired
+	@Qualifier("addProfile")
 	BusinessTransaction addProfile;
 	@Autowired
+	@Qualifier("isProfileExistByUsername")
+	BusinessFunction isProfileExistByUsername;
+	@Autowired
+	@Qualifier("findProfileByUsername")
 	BusinessFunction findProfileByUsername;
 	@Autowired
+	@Qualifier("editProfile")
 	BusinessTransaction editProfile;
 	@Autowired
+	@Qualifier("editPhotoProfile")
 	BusinessTransaction editPhotoProfile;
-	Logger log = LoggerFactory.getLogger(getClass());
-
 	@Autowired
-	KafkaTemplate<String, Domain> kafkaTemplate;
+	@Qualifier("countProfileByAuthority")
+	BusinessFunction countProfileByAuthority;
+	
+	
 
-	@Value("${kafka.messages.edit_user}")
-	private String editUser;
-	@Autowired
-	private BusinessFunction isProfileExistByUsername;
+	@GetMapping("/findSchoolByUsername")
+	@ResponseBody
+	public Domain findSchoolByUsername(@RequestParam("size") Integer size,
+			@RequestParam("username") String username,
+			@RequestParam("page") Integer page) {
+		Domain profileDomain = new Domain();
+		profileDomain.put("page", page);
+		return findSchoolByUsername.handle(profileDomain);
+	}
 
-	@PostMapping("/profile")
+	@GetMapping("/dashboardCounter")
+	@ResponseBody
+	public Domain dashboardCounter(@RequestParam("schoolId") Long schoolId) {
+		Domain profileDomain = new Domain();
+		profileDomain.put("schoolId", schoolId);
+		return dashboardCounter.handle(profileDomain);
+	}
+
+	@PostMapping("/addProfile")
 	@ResponseBody
 	public Domain addProfile(@RequestBody Domain profileDomain) {
-		log.debug("Reuest Add Profile : {}", profileDomain);
 		Domain outputDto = addProfile.handle(profileDomain);
-		log.debug("Response Add Profile : {}", outputDto);
 		return outputDto;
 	}
 
-	@GetMapping("/profile")
+	@GetMapping("/isProfileExistByUsername")
 	@ResponseBody
-	public Domain findProfileByUsername(@RequestParam("username") String username) {
-		log.debug("Username : {}", username);
+	public Domain isProfileExistByUsername(
+			@RequestParam("username") String username) {
 		Domain profileDomain = new Domain();
 		profileDomain.put("username", username);
-		Domain outputDto = findProfileByUsername.handle(profileDomain);
-		log.debug("Response Find Profile : {}", outputDto);
-		return outputDto;
-	}
-	@GetMapping("/username-exists")
-	@ResponseBody
-	public Domain isProfileExistByUsername(@RequestParam("username") String username) {
-		log.debug("Username : {}", username);
-		Domain profileDomain = new Domain();
-		profileDomain.put("username", username);
-		Domain outputDto = isProfileExistByUsername.handle(profileDomain);
-		log.debug("Response Find Profile : {}", outputDto);
-		return outputDto;
-	}
-	@PostMapping("/photo_profile")
-	@ResponseBody
-	public Domain editPhotoProfile(@RequestBody Domain profileDomain) {
-		log.debug("Request Edit Photo Profile : {}", profileDomain);
-		Domain outputDto = editPhotoProfile.handle(profileDomain);
-		log.debug("Response Edit Photo Profile : {}", outputDto);
-		return outputDto;
+		return isProfileExistByUsername.handle(profileDomain);
 	}
 
-	@PutMapping("/profile")
+	@GetMapping("/findProfileByUsername")
+	@ResponseBody
+	public Domain findProfileByUsername(
+			@RequestParam("username") String username) {
+		Domain profileDomain = new Domain();
+		profileDomain.put("username", username);
+		return findProfileByUsername.handle(profileDomain);
+	}
+
+	@PutMapping("/editProfile")
 	@ResponseBody
 	public Domain editProfile(@RequestBody Domain profileDomain) {
-		log.debug("Reuest Edit Profile : {}", profileDomain);
 		Domain outputDto = editProfile.handle(profileDomain);
-		log.debug("Response Edit Profile : {}", outputDto);
-		profileDomain.remove("profile");
-		kafkaTemplate.send(editUser, profileDomain);
 		return outputDto;
 	}
 
-	@GetMapping(value = "/profile-image", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE,
-			MediaType.IMAGE_GIF_VALUE })
-	public byte[] renderImage(String username) throws IOException {
-		File inputFile = new File(BASE_DIR, username.concat(File.separator).concat("profile.png"));
-		byte[] bytes = StreamUtils.copyToByteArray(new FileInputStream(inputFile));
-		return bytes;
+	@PutMapping("/editPhotoProfile")
+	@ResponseBody
+	public Domain editPhotoProfile(@RequestBody Domain profileDomain) {
+		Domain outputDto = editPhotoProfile.handle(profileDomain);
+		return outputDto;
+	}
+
+	@GetMapping("/countProfileByAuthority")
+	@ResponseBody
+	public Domain countProfileByAuthority(
+			@RequestParam("authority") String authority) {
+		Domain profileDomain = new Domain();
+		profileDomain.put("authority", authority);
+		return countProfileByAuthority.handle(profileDomain);
 	}
 }
