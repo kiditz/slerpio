@@ -1,27 +1,20 @@
 package org.slerpio.oauth.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.GenerationType;
-import javax.persistence.Basic;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
-/**
- * The entity for user_authority
- * 
- * @author kiditz
- */
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "user_authority")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
@@ -34,19 +27,14 @@ public class UserAuthority {
 	@SequenceGenerator(name = "USER_AUTHORITY_SEQ", sequenceName = "user_authority_seq", initialValue = 1, allocationSize = 1)
 	private Long authorityId;
 	@Column(name = "authority")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerp.oauth.entity.UserAuthority.authority")
-	@Size(min = 1, max = 60)
 	private String authority;
-	@ManyToOne(optional = false)
+	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private UserPrincipal userId;
-
-	public UserAuthority() {
-	}
-
-	public UserAuthority(Long authorityId, String authority, UserPrincipal userId) {
-		this.authorityId = authorityId;
+	
+	
+	public UserAuthority(String authority, UserPrincipal userId) {
+		super();		
 		this.authority = authority;
 		this.userId = userId;
 	}
@@ -69,7 +57,7 @@ public class UserAuthority {
 		this.authority = authority;
 	}
 
-	//@JsonProperty
+	@JsonProperty
 	public UserPrincipal getUserId() {
 		return userId;
 	}

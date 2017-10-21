@@ -12,18 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@KeyValidation("username")
+@KeyValidation("phoneNumber")
 @NumberValidation({})
 @NotBlankValidation({})
-public class FindUserPrincipalByUsername extends DefaultBusinessFunction {
+public class FindUserPrincipalByPhoneNumber extends DefaultBusinessFunction {
 
 	@Autowired
 	UserPrincipalRepository userPrincipalRepository;
 
 	@Override
 	public Domain handle(Domain userPrincipalDomain) {
+		super.handle(userPrincipalDomain);
 		UserPrincipal userPrincipal = userPrincipalRepository
-				.findUserPrincipalByUsername(userPrincipalDomain.getString("username"));
+				.findUserPrincipalByPhoneNumber(userPrincipalDomain.getString("phoneNumber"));
 		if (userPrincipal == null)
 			throw new CoreException("failed.to.found.user");
 		Domain userDomain = new Domain().put("userPrincipal", userPrincipal);

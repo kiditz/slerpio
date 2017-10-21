@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@NotBlankValidation({ "username", "activationCode" })
+@NotBlankValidation({ "phoneNumber", "activationCode" })
 public class ActivateUser extends DefaultBusinessTransaction {
 
 	@Autowired
@@ -25,7 +25,7 @@ public class ActivateUser extends DefaultBusinessTransaction {
 	@Override
 	public void prepare(Domain userPrincipalDomain) throws Exception {
 		UserPrincipal userPrincipal = userPrincipalRepository
-				.findUserPrincipalByUsername(userPrincipalDomain.getString("username"));
+				.findUserPrincipalByPhoneNumber(userPrincipalDomain.getString("phoneNumber"));
 		if (userPrincipal == null) {
 			throw new CoreException(OauthConstant.USER_NOT_FOUND);
 		}
@@ -33,7 +33,7 @@ public class ActivateUser extends DefaultBusinessTransaction {
 		if (!userPrincipal.getActivationCode().equals(userPrincipalDomain.getString("activationCode"))) {
 			throw new CoreException(OauthConstant.INVALID_ACTIVATION_CODE);
 		}
-		userPrincipalDomain.put("userPrincipal", userPrincipal);		
+		userPrincipalDomain.put("userPrincipal", userPrincipal);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class ActivateUser extends DefaultBusinessTransaction {
 		log.info("User Principal Domain : {}", userPrincipalDomain);
 		try {
 			UserPrincipal userPrincipal = userPrincipalDomain.getDomain("userPrincipal").convertTo(UserPrincipal.class);
-			//It will be ignore to upadte authority list
+			// It will be ignore to upadte authority list
 			userPrincipal.setUserAuthorityList(null);
 			userPrincipal = userPrincipalRepository.saveAndFlush(userPrincipal);
 			return new Domain(userPrincipal);
