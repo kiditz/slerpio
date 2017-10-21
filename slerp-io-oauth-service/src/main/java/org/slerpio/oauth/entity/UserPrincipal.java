@@ -1,6 +1,7 @@
 package org.slerpio.oauth.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
+
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,8 +28,12 @@ import org.slerpio.oauth.entity.UserAuthority;
 @Table(name = "user_principal")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class UserPrincipal {
+public class UserPrincipal implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_PRINCIPAL_SEQ")
@@ -60,9 +67,10 @@ public class UserPrincipal {
 	@Size(min = 1, max = 8)
 	private String activationCode;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch=FetchType.EAGER)
 	private List<UserAuthority> userAuthorityList;
-
+	public UserPrincipal() {	
+	}
 	@JsonProperty
 	public Long getUserId() {
 		return userId;
@@ -162,6 +170,7 @@ public class UserPrincipal {
 		this.activationCode = activationCode;
 	}
 
+	@JsonProperty
 	public List<UserAuthority> getUserAuthorityList() {
 		return userAuthorityList;
 	}

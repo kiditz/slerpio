@@ -1,5 +1,7 @@
 package org.slerpio.oauth.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +21,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "user_authority")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class UserAuthority {
+public class UserAuthority implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "authority_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_AUTHORITY_SEQ")
@@ -32,7 +38,8 @@ public class UserAuthority {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private UserPrincipal userId;
 	
-	
+	public UserAuthority() {	
+	}
 	public UserAuthority(String authority, UserPrincipal userId) {
 		super();		
 		this.authority = authority;
@@ -56,8 +63,7 @@ public class UserAuthority {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-
-	@JsonProperty
+	
 	public UserPrincipal getUserId() {
 		return userId;
 	}
