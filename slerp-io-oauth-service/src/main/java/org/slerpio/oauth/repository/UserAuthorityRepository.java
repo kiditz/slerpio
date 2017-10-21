@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserAuthorityRepository extends JpaRepository<UserAuthority, Long> {
 
-	@Query("SELECT a.authority FROM UserAuthority a WHERE a.userId.username = :username")
-	public List<UserAuthority> getAuthorityByUsername(@Param("username") String username);
+	@Query("SELECT a.authority FROM UserAuthority a WHERE a.userId.phoneNumber = :phoneNumber")
+	public List<UserAuthority> getAuthorityByUsername(@Param("phoneNumber") String username);
 }

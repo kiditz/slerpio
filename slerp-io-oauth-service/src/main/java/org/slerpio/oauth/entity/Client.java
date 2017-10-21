@@ -45,18 +45,18 @@ public class Client implements Serializable {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "client_scope", joinColumns = {
-			@JoinColumn(name = "client_id", referencedColumnName = "id", insertable = true, updatable = true) })
+			@JoinColumn(name = "client_id", referencedColumnName = "client_id", insertable = true, updatable = true) })
 	@Column(name = "scope")
 	private Set<String> scope;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "client_grant", joinColumns = {
-			@JoinColumn(name = "client_id", referencedColumnName = "id", insertable = true, updatable = true) })
+			@JoinColumn(name = "client_id", referencedColumnName = "client_id", insertable = true, updatable = true) })
 	@Column(name = "grant_name")
 	private Set<String> authorizedGrantTypes;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "client_redirect", joinColumns = {
-			@JoinColumn(name = "client_id", referencedColumnName = "id", insertable = true, updatable = true) })
+			@JoinColumn(name = "client_id", referencedColumnName = "client_id", insertable = true, updatable = true) })
 	@Column(name = "redirect_uri")
 	private Set<String> registeredRedirectUri;
 

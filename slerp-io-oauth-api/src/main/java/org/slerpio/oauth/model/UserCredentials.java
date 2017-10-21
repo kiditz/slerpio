@@ -42,7 +42,7 @@ public class UserCredentials implements UserDetails, CredentialsContainer, Clone
 
 	@Override
 	public String getUsername() {
-		return principal.getUsername();
+		return principal.getPhoneNumber();
 	}
 
 	@Override

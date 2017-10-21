@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserSecurityService {
 	@Autowired
-	BusinessFunction findUserPrincipalByUsername;
+	BusinessFunction findUserPrincipalByPhoneNumber;
 
 	@Override
-	public UserCredentials loadUserByUsername(String username) {
+	public UserCredentials loadUserByUsername(String phoneNumber) {
 		Domain userPrincipalDomain = new Domain();
-		userPrincipalDomain.put("username", username);
-		Domain outputUserPrincipal = findUserPrincipalByUsername.handle(userPrincipalDomain);
+		userPrincipalDomain.put("phoneNumber", phoneNumber);
+		Domain outputUserPrincipal = findUserPrincipalByPhoneNumber.handle(userPrincipalDomain);
 		if (outputUserPrincipal == null)
 			throw new CoreException("login.failed.cannot.found.user");
 		UserPrincipal principal;
@@ -31,20 +31,4 @@ public class UserDetailsServiceImpl implements UserSecurityService {
 			throw new CoreException("login.failed.cannot.found.user");
 		}
 	}
-
-	// private static final SecureRandom RANDOM;
-	// private static final int HASHING_ROUNDS = 10;
-	// static {
-	// try {
-	// RANDOM = SecureRandom.getInstanceStrong();
-	// } catch (NoSuchAlgorithmException e) {
-	// throw new IllegalStateException(e);
-	// }
-	// }
-	//
-	// public static void main(String[] args) {
-	// String salt = BCrypt.gensalt(HASHING_ROUNDS);
-	// String password = BCrypt.hashpw("rioters7", salt);
-	// System.err.println(password);
-	// }
 }

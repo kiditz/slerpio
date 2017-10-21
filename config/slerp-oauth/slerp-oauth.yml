@@ -17,7 +17,7 @@ spring:
     driverClassName: org.postgresql.Driver
     username: kiditz
     password: rioters7
-    url: jdbc:postgresql://172.17.0.1:2070/oauth  
+    url: jdbc:postgresql://172.17.0.1:5432/slerp-io-oauth  
   mail:
     host: smtp.gmail.com
     port: 587
