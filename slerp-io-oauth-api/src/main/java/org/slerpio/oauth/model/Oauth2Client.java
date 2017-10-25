@@ -30,7 +30,7 @@ public class Oauth2Client implements ClientDetails {
 	@Override
 	public Map<String, Object> getAdditionalInformation() {
 		Map<String, Object> map = new HashMap<>();
-		map.put("company", "Slerp Studio");
+		map.put("company", "Slerp Inc");
 		return map;
 	}
 
@@ -93,5 +93,4 @@ public class Oauth2Client implements ClientDetails {
 	public boolean isSecretRequired() {
 		return true;
 	}
-
 }

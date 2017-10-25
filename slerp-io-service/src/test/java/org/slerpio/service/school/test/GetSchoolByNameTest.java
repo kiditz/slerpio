@@ -1,69 +1,58 @@
 package org.slerpio.service.school.test;
 
-import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slerp.core.Domain;
-import org.slerp.core.business.BusinessFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slerp.core.Domain;
+import org.slerp.core.business.BusinessFunction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.junit.Before;
+import org.junit.Test;
+import org.assertj.core.api.Assertions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-@TestExecutionListeners(listeners = { DirtiesContextTestExecutionListener.class,
+@TestExecutionListeners(listeners = {DirtiesContextTestExecutionListener.class,
 		TransactionalTestExecutionListener.class,
-		DependencyInjectionTestExecutionListener.class }, inheritListeners = false)
+		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class GetSchoolByNameTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class GetSchoolByNameTest
+		extends
+			AbstractTransactionalJUnit4SpringContextTests {
 
-	static private Logger log = LoggerFactory.getLogger(GetSchoolByNameTest.class);
+	static private Logger log = LoggerFactory
+			.getLogger(GetSchoolByNameTest.class);
 	@Autowired
 	BusinessFunction getSchoolByName;
 
 	@Before
 	public void prepare() {
-		executeSqlScript("classpath:org/slerpio/service/school/test/GetSchoolByNameTest.sql", false);
+		executeSqlScript(
+				"classpath:org/slerpio/service/school/test/GetSchoolByNameTest.sql",
+				false);
 	}
 
 	@Test
 	public void testSuccess() {
-		String name = "SMAN 95 JAKARTA";
-		Integer size = 10;
 		Integer page = 0;
+		String name = "SMAN 95";
+		Integer size = 10;
 		Domain schoolDomain = new Domain();
+		schoolDomain.put("page", page);
 		schoolDomain.put("name", name);
 		schoolDomain.put("size", size);
-		schoolDomain.put("page", page);
 		Domain outputSchool = getSchoolByName.handle(schoolDomain);
 		log.info("Result Test {}", outputSchool);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("size")).isEqualTo(size);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("number")).isEqualTo(page);
-	}
-
-	@Test
-	public void testIfNotFound() {
-		String name = "Kiditz Ganteng";
-		Integer size = 10;
-		Integer page = 0;
-		Domain schoolDomain = new Domain();
-		schoolDomain.put("name", name);
-		schoolDomain.put("size", size);
-		schoolDomain.put("page", page);
-		Domain outputSchool = getSchoolByName.handle(schoolDomain);
-		log.info("Result Test {}", outputSchool);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("size")).isEqualTo(size);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("number")).isEqualTo(page);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").get("numberOfElements")).isEqualTo(page);
-		Assertions.assertThat(outputSchool.getDomain("schoolPage").getList("content")).isEmpty();;
+		Assertions.assertThat(schoolDomain.get("page")).isEqualTo(page);
+		Assertions.assertThat(schoolDomain.get("name")).isEqualTo(name);
+		Assertions.assertThat(schoolDomain.get("size")).isEqualTo(size);
 	}
 }

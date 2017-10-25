@@ -1,5 +1,3 @@
-/*
-TODO : Handle Sql File*/
 
-INSERT INTO school (school_id, name, address, description, latitude, longitude, build_at, created_at, last_update) VALUES 
-(1, 'SMAN 95 JAKARTA', 'JAKARTA BARAT', 'SMA NEGERI 95 JAKARTA', -99, -99, '2017-09-16', '2017-09-16 11:44:17.094092', '2017-09-16 11:44:17.094092');
+INSERT INTO school (school_id, name, address, longitude, latitude, active, active_at, created_at, description, update_at) VALUES 
+(1, 'SMAN 95 JAKARTA', 'JAKARTA BARAT', 0, 0, 'Y',  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,'SMAN 95 JAKARTA', CURRENT_TIMESTAMP);

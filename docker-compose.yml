@@ -1,27 +1,5 @@
 version: '3'
 services:
-  # postgres:
-  #   image: slerpio/postgres
-  #   ports:
-  #     - "5432:5432/tcp"    
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready"]
-  #     interval: 30s
-  #     timeout: 30s
-  #     retries: 3
-  #   environment:
-  #     - POSTGRES_DATABASE=slerp
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=1234
-  #   volumes:
-  #     - slerp_data_vol:/data/db
-  #   networks: 
-  #     - slerp_overlay_net    
-  # activemq:
-  #   image: rmohr/activemq:5.11.1          
-  #   ports:
-  #     - "61616:61616"
-  #     - "8161:8161" 
   slerp-io-oauth-api:
     environment:
       CONSUL_SERVER: http://172.17.0.1
@@ -35,29 +13,4 @@ services:
       options:
         max-size: 10m
         max-file: '10'
-  slerp-io-api:
-    environment:
-      CONSUL_SERVER: http://172.17.0.1
-      SPRING_PROFILES_ACTIVE: docker
-    ports:      
-      - "8020:8020"
-    build: slerp-io-api
-    image: localhost:5000/slerp/slerpio-api
-    restart: always
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'  
-  api-gateway:
-    environment:
-      CONSUL_SERVER: http://172.17.0.1
-      SPRING_PROFILES_ACTIVE: docker
-    ports:      
-      - "8021:8021"
-    build: api-gateway
-    image: localhost:5000/slerp/api-gateway
-    restart: always
-    logging:
-      options:
-        max-size: 10m
-        max-file: '10'  
+ 

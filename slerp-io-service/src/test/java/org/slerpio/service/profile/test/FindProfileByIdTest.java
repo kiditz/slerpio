@@ -24,30 +24,30 @@ import org.assertj.core.api.Assertions;
 		TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class FindProfileByUsernameTest
+public class FindProfileByIdTest
 		extends
 			AbstractTransactionalJUnit4SpringContextTests {
 
 	static private Logger log = LoggerFactory
-			.getLogger(FindProfileByUsernameTest.class);
+			.getLogger(FindProfileByIdTest.class);
 	@Autowired
-	BusinessFunction findProfileByUsername;
+	BusinessFunction findProfileById;
 
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/service/profile/test/FindProfileByUsernameTest.sql",
+				"classpath:org/slerpio/service/profile/test/FindProfileByIdTest.sql",
 				false);
 	}
 
 	@Test
 	public void testSuccess() {
-		String username = "kiditz";
-		Domain profileDomain = new Domain();
-		profileDomain.put("username", username);
-		Domain outputProfile = findProfileByUsername.handle(profileDomain);
-		log.info("Result Test {}", outputProfile);
-		Assertions.assertThat(profileDomain.get("username"))
-				.isEqualTo(username);
+		Long profileId = 1l;
+		Domain userProfileDomain = new Domain();
+		userProfileDomain.put("profileId", profileId);
+		Domain outputUserProfile = findProfileById.handle(userProfileDomain);
+		log.info("Result Test {}", outputUserProfile);
+		Assertions.assertThat(userProfileDomain.get("profileId")).isEqualTo(
+				profileId);
 	}
 }

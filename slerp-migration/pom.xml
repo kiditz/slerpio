@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.slerp.io</groupId>
-	<artifactId>slerp-migration</artifactId>
+	<artifactId>slerp-io-migration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<postgresql.version>9.4.1212.jre7</postgresql.version>
 		<flyway.version>4.0.3</flyway.version>
-		<database.url>jdbc:postgresql://172.17.0.1:2270/slepio</database.url>
+		<database.url>jdbc:postgresql://172.17.0.1:2270/slerpio</database.url>
 		<database.user>kiditz</database.user>
 		<databese.password>rioters7</databese.password>
 	</properties>
@@ -24,6 +24,11 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 			<version>${flyway.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -35,19 +40,13 @@
 				<configuration>
 					<sqlMigrationSeparator>__</sqlMigrationSeparator>
 					<locations>
-						<location>filesystem:src/main/resources/flyway/migrations</location>
+						<location>filesystem:src/main/resources/org/slerpio/migrations</location>
 					</locations>
 					<url>${database.url}</url>
 					<user>${database.user}</user>
 					<password>${databese.password}</password>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>postgresql</groupId>
-						<artifactId>postgresql</artifactId>
-						<version>${postgresql.version}</version>
-					</dependency>
-				</dependencies>
+				
 			</plugin>
 		</plugins>
 	</build>

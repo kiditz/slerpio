@@ -1,10 +1,10 @@
 spring:
-  profiles: docker
+  profiles: dev
   application:
     name: slerp-oauth
   cloud:
     consul:
-      host: ${CONSUL_SERVER:localhost}
+      host: localhost
       port: 8500
       config:
         fail-fast: true
