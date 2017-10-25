@@ -3,15 +3,19 @@ package org.slerpio.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -29,22 +33,29 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "school")
+@Table(name = "user_profile")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class School implements Serializable {
+public class UserProfile implements Serializable {
 
 	@Id
-	@Column(name = "school_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHOOL_SEQ")
-	@SequenceGenerator(name = "SCHOOL_SEQ", sequenceName = "school_seq", initialValue = 1, allocationSize = 1)
-	private Long schoolId;
-	@Column(name = "name")
+	@Column(name = "profile_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_PROFILE_SEQ")
+	@SequenceGenerator(name = "USER_PROFILE_SEQ", sequenceName = "user_profile_seq", initialValue = 1, allocationSize = 1)
+	private Long profileId;
+	@Column(name = "phone_number")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.name")
-	private String name;
-	@Column(name = "description")
-	private String description;
+	@NotNull(message = "org.slerpio.entity.UserProfile.userId")
+	private String phoneNumber;
+	@Column(name = "fullname")
+	@Basic(optional = false)
+	@NotNull(message = "org.slerpio.entity.UserProfile.fullname")
+	private String fullname;
+	@Column(name = "gender")
+	@Basic(optional = false)
+	@NotNull(message = "org.slerpio.entity.UserProfile.gender")
+	@Size(min = 1, max = 1)
+	private String gender;
 	@Column(name = "address")
 	@Size(min = 1, max = 20)
 	private String address;
@@ -54,51 +65,61 @@ public class School implements Serializable {
 	private BigDecimal longitude;
 	@Column(name = "active")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.active")
+	@NotNull(message = "org.slerpio.entity.UserProfile.active")
 	@Size(min = 1, max = 1)
 	private String active;
 	@Column(name = "active_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.activeAt")
+	@NotNull(message = "org.slerpio.entity.UserProfile.activeAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date activeAt;
 	@Column(name = "created_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.School.createdAt")
+	@NotNull(message = "org.slerpio.entity.UserProfile.createdAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@Column(name = "update_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "schoolSet")
-	private Set<UserProfile> userProfiles = new java.util.HashSet<>();
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "profile_has_school", joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "profile_id"), inverseJoinColumns = @JoinColumn(name = "school_id", referencedColumnName = "school_id"))
+	private Set<School> schoolSet = new HashSet<>();
 
 	@JsonProperty
-	public Long getSchoolId() {
-		return schoolId;
+	public Long getProfileId() {
+		return profileId;
 	}
 
-	public void setSchoolId(Long schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	@JsonProperty
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setProfileId(Long profileId) {
+		this.profileId = profileId;
 	}
 
 	@JsonProperty
-	public String getDescription() {
-		return description;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@JsonProperty
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	@JsonProperty
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	@JsonProperty
@@ -164,18 +185,19 @@ public class School implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
+	@JsonProperty
+	public Set<School> getSchoolSet() {
+		return schoolSet;
 	}
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
+	public void setSchoolSet(Set<School> schoolSet) {
+		this.schoolSet = schoolSet;
 	}
 
-	public void addUserProfile(UserProfile profile) {
-		if (!userProfiles.contains(profile)) {
-			userProfiles.add(profile);
-			profile.addSchool(this);
+	public void addSchool(School school) {
+		if (!schoolSet.contains(school)) {
+			schoolSet.add(school);
+			school.addUserProfile(this);
 		}
 	}
 }
