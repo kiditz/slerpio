@@ -56,19 +56,14 @@ public class RepositoryConfiguration {
 	}
 
 	@Bean
-	public ReactiveHandler reactiveHandler(MessageSource messageSource) {
-		return new ReactiveHandler(messageSource);
-	}
-
-	@Bean
 	public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
 		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
-//		List<MediaType> supportedMediaTypes = new ArrayList<>();
-//		supportedMediaTypes.add(MediaType.IMAGE_PNG);
-//		supportedMediaTypes.add(MediaType.IMAGE_JPEG);
-//		supportedMediaTypes.add(MediaType.IMAGE_GIF);
-//		supportedMediaTypes.add(MediaType.APPLICATION_PDF);		
-//		converter.setSupportedMediaTypes(supportedMediaTypes);
+		// List<MediaType> supportedMediaTypes = new ArrayList<>();
+		// supportedMediaTypes.add(MediaType.IMAGE_PNG);
+		// supportedMediaTypes.add(MediaType.IMAGE_JPEG);
+		// supportedMediaTypes.add(MediaType.IMAGE_GIF);
+		// supportedMediaTypes.add(MediaType.APPLICATION_PDF);
+		// converter.setSupportedMediaTypes(supportedMediaTypes);
 		return converter;
 	}
 }

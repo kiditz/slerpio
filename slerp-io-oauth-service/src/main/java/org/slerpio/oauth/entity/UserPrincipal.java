@@ -1,36 +1,34 @@
 package org.slerpio.oauth.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.Size;
-<<<<<<< HEAD
-
 import java.io.Serializable;
-=======
->>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.List;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import org.slerpio.oauth.entity.UserAuthority;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "user_principal")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class UserPrincipal implements Serializable{
+public class UserPrincipal implements Serializable {
 
 	/**
 	 * 
@@ -69,14 +67,12 @@ public class UserPrincipal implements Serializable{
 	@Size(min = 1, max = 8)
 	private String activationCode;
 
-<<<<<<< HEAD
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch=FetchType.EAGER)
-=======
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
->>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
 	private List<UserAuthority> userAuthorityList;
-	public UserPrincipal() {	
+
+	public UserPrincipal() {
 	}
+
 	@JsonProperty
 	public Long getUserId() {
 		return userId;
@@ -165,19 +161,9 @@ public class UserPrincipal implements Serializable{
 
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
-<<<<<<< HEAD
 	}
 
-	@JsonProperty
-	public String getActivationCode() {
-		return activationCode;
-	}
 
-	public void setActivationCode(String activationCode) {
-		this.activationCode = activationCode;
-=======
->>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
-	}
 
 	@JsonProperty
 	public String getActivationCode() {
