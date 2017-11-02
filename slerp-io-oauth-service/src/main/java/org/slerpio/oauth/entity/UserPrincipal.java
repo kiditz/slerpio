@@ -1,7 +1,6 @@
 package org.slerpio.oauth.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,8 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
+<<<<<<< HEAD
 
 import java.io.Serializable;
+=======
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -67,7 +69,11 @@ public class UserPrincipal implements Serializable{
 	@Size(min = 1, max = 8)
 	private String activationCode;
 
+<<<<<<< HEAD
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch=FetchType.EAGER)
+=======
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 	private List<UserAuthority> userAuthorityList;
 	public UserPrincipal() {	
 	}
@@ -159,6 +165,18 @@ public class UserPrincipal implements Serializable{
 
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
+<<<<<<< HEAD
+	}
+
+	@JsonProperty
+	public String getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
+=======
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 	}
 
 	@JsonProperty
@@ -170,7 +188,6 @@ public class UserPrincipal implements Serializable{
 		this.activationCode = activationCode;
 	}
 
-	@JsonProperty
 	public List<UserAuthority> getUserAuthorityList() {
 		return userAuthorityList;
 	}

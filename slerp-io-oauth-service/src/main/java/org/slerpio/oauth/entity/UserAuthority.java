@@ -1,7 +1,10 @@
 package org.slerpio.oauth.entity;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
+=======
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,8 +41,12 @@ public class UserAuthority implements Serializable {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private UserPrincipal userId;
 	
+<<<<<<< HEAD
 	public UserAuthority() {	
 	}
+=======
+	
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 	public UserAuthority(String authority, UserPrincipal userId) {
 		super();		
 		this.authority = authority;
@@ -63,7 +70,12 @@ public class UserAuthority implements Serializable {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
+<<<<<<< HEAD
 	
+=======
+
+	@JsonProperty
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d
 	public UserPrincipal getUserId() {
 		return userId;
 	}

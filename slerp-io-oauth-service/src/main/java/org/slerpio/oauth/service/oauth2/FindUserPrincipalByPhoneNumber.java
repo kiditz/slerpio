@@ -15,7 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 @KeyValidation("phoneNumber")
 @NumberValidation({})
+<<<<<<< HEAD:slerp-io-oauth-service/src/main/java/org/slerpio/oauth/service/oauth2/FindUserPrincipalByPhoneNumber.java
 @NotBlankValidation({"phoneNumber"})
+=======
+@NotBlankValidation({})
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d:slerp-io-oauth-service/src/main/java/org/slerpio/oauth/service/oauth2/FindUserPrincipalByPhoneNumber.java
 public class FindUserPrincipalByPhoneNumber extends DefaultBusinessFunction {
 
 	@Autowired
@@ -24,7 +28,12 @@ public class FindUserPrincipalByPhoneNumber extends DefaultBusinessFunction {
 	@Override
 	public Domain handle(Domain userPrincipalDomain) {
 		super.handle(userPrincipalDomain);
+<<<<<<< HEAD:slerp-io-oauth-service/src/main/java/org/slerpio/oauth/service/oauth2/FindUserPrincipalByPhoneNumber.java
 		UserPrincipal userPrincipal = userPrincipalRepository.findUserPrincipalByPhoneNumber(userPrincipalDomain.getString("phoneNumber"));
+=======
+		UserPrincipal userPrincipal = userPrincipalRepository
+				.findUserPrincipalByPhoneNumber(userPrincipalDomain.getString("phoneNumber"));
+>>>>>>> 6430a01fbe4730811797ceb4202845c0f4dca20d:slerp-io-oauth-service/src/main/java/org/slerpio/oauth/service/oauth2/FindUserPrincipalByPhoneNumber.java
 		if (userPrincipal == null)
 			throw new CoreException(OauthConstant.USER_NOT_FOUND);
 		Domain userDomain = new Domain().put("userPrincipal", userPrincipal);
