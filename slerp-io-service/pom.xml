@@ -173,7 +173,7 @@
 				<version>1.0.0</version>
 				<configuration>
 					<properties>${project.basedir}/src/test/resources/config.properties</properties>
-					<apiDir>/home/kiditz/slerp-git/slerpio/slerp-io-api/src/main/java</apiDir>
+					<apiDir>/home/kiditz/slerpio/slerp-io-api/src/main/java</apiDir>
 				</configuration>
 			</plugin>
 		</plugins>

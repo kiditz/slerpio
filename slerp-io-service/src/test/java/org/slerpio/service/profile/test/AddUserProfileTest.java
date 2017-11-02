@@ -34,7 +34,7 @@ public class AddUserProfileTest extends AbstractTransactionalJUnit4SpringContext
 
 	@Before
 	public void prepare() {
-		//executeSqlScript("classpath:org/slerpio/service/profile/test/AddUserProfileTest.sql", false);
+		executeSqlScript("classpath:org/slerpio/service/profile/test/AddUserProfileTest.sql", false);
 	}
 
 	@Test
@@ -52,18 +52,20 @@ public class AddUserProfileTest extends AbstractTransactionalJUnit4SpringContext
 		String gender = "L";
 
 		Domain schoolId = new Domain();
-		schoolId.put("schoolId", 2);
+		schoolId.put("schoolId", 1);
 		Domain userProfileDomain = new Domain();
 		userProfileDomain.put("address", address);
 		userProfileDomain.put("active", active);
 		userProfileDomain.put("activeAt", activeAt);
 		userProfileDomain.put("phoneNumber", phoneNumber);
-		userProfileDomain.put("longitude", longitude);
+		
 		userProfileDomain.put("fullname", fullname);
+		userProfileDomain.put("longitude", longitude);
 		userProfileDomain.put("latitude", latitude);
-		userProfileDomain.put("updateAt", updateAt);
+		
 		userProfileDomain.put("schoolId", schoolId);
 		userProfileDomain.put("gender", gender);
+		userProfileDomain.put("updateAt", updateAt);
 		userProfileDomain.put("createdAt", createdAt);
 		log.info("Request Test >>> {}", userProfileDomain);
 		Domain outputUserProfile = addUserProfile.handle(userProfileDomain);

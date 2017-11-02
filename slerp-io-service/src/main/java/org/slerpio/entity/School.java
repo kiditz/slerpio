@@ -71,7 +71,7 @@ public class School implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "schoolSet")
+	@ManyToMany(mappedBy = "schoolSet", cascade = CascadeType.ALL)
 	private Set<UserProfile> userProfiles = new java.util.HashSet<>();
 
 	@JsonProperty

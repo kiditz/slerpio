@@ -5,6 +5,7 @@ import org.slerp.core.Domain;
 import org.slerp.core.business.DefaultBusinessTransaction;
 import org.slerp.core.validation.KeyValidation;
 import org.slerp.core.validation.NotBlankValidation;
+import org.slerpio.ServiceConstant;
 import org.slerpio.entity.School;
 import org.slerpio.entity.UserProfile;
 import org.slerpio.repository.SchoolRepository;
@@ -30,12 +31,13 @@ public class AddUserProfile extends DefaultBusinessTransaction {
 
 	@Override
 	public void prepare(Domain userProfileDomain) throws Exception {
+
 		if (userProfileDomain.containsKey("schoolId")) {
 			Domain schoolDomain = userProfileDomain.getDomain("schoolId");
 			School schoolId = schoolDomain.convertTo(School.class);
 			schoolId = schoolRepository.findOne(schoolId.getSchoolId());
 			if (schoolId == null) {
-				throw new CoreException("org.slerpio.entity.School.notFound");
+				throw new CoreException("school.not.found");
 			}
 			userProfileDomain.put("schoolId", new Domain(schoolId));
 		}
@@ -44,15 +46,20 @@ public class AddUserProfile extends DefaultBusinessTransaction {
 	@Override
 	public Domain handle(Domain userProfileDomain) {
 		super.handle(userProfileDomain);
+
 		try {
+			String phoneNumber = userProfileDomain.getString("phoneNumber");
+			if (userProfileRepository.isExistsByPhoneNumber(phoneNumber)) {
+				throw new CoreException(ServiceConstant.PHONE_NUMBER_EXISTS);
+			}
 			UserProfile userProfile = userProfileDomain.convertTo(UserProfile.class);
+			
 			if (userProfileDomain.containsKey("schoolId")) {
-
 				School school = userProfileDomain.getDomain("schoolId").convertTo(School.class);
-
+				userProfile.addSchool(school);
 			}
 			log.info("Input >>> {}", userProfileDomain);
-			userProfile = userProfileRepository.saveAndFlush(userProfile);
+			userProfile = userProfileRepository.save(userProfile);
 			return new Domain(userProfile);
 		} catch (Exception e) {
 			throw new CoreException(e);

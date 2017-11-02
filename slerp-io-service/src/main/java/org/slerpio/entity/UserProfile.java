@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,13 +38,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserProfile implements Serializable {
 
 	@Id
-	@Column(name = "profile_id")
+	@Column(name = "user_profile_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_PROFILE_SEQ")
 	@SequenceGenerator(name = "USER_PROFILE_SEQ", sequenceName = "user_profile_seq", initialValue = 1, allocationSize = 1)
 	private Long profileId;
 	@Column(name = "phone_number")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.UserProfile.userId")
+	@NotNull(message = "org.slerpio.entity.UserProfile.phoneNumber")
 	private String phoneNumber;
 	@Column(name = "fullname")
 	@Basic(optional = false)
@@ -68,6 +67,9 @@ public class UserProfile implements Serializable {
 	@NotNull(message = "org.slerpio.entity.UserProfile.active")
 	@Size(min = 1, max = 1)
 	private String active;
+	@Column(name = "authority")
+	@Size(min = 1, max = 20)
+	private String authority;
 	@Column(name = "active_at")
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.UserProfile.activeAt")
@@ -82,9 +84,12 @@ public class UserProfile implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "profile_has_school", joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "profile_id"), inverseJoinColumns = @JoinColumn(name = "school_id", referencedColumnName = "school_id"))
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_school_at", joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id"), inverseJoinColumns = @JoinColumn(name = "school_id", referencedColumnName = "school_id"))
 	private Set<School> schoolSet = new HashSet<>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "class_student", joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id"), inverseJoinColumns = @JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id"))
+	private Set<SchoolClass> classSet = new HashSet<>();
 
 	@JsonProperty
 	public Long getProfileId() {
@@ -163,6 +168,15 @@ public class UserProfile implements Serializable {
 		return activeAt;
 	}
 
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	@JsonProperty
+	public String getAuthority() {
+		return authority;
+	}
+
 	public void setActiveAt(Date activeAt) {
 		this.activeAt = activeAt;
 	}
@@ -194,10 +208,20 @@ public class UserProfile implements Serializable {
 		this.schoolSet = schoolSet;
 	}
 
+	@JsonProperty
+	public Set<SchoolClass> getClassSet() {
+		return classSet;
+	}
+
+	public void setClassSet(Set<SchoolClass> classSet) {
+		this.classSet = classSet;
+	}
+
 	public void addSchool(School school) {
 		if (!schoolSet.contains(school)) {
 			schoolSet.add(school);
 			school.addUserProfile(this);
 		}
 	}
+
 }
