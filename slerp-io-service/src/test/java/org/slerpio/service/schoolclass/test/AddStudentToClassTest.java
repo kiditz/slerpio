@@ -32,7 +32,8 @@ public class AddStudentToClassTest extends AbstractTransactionalJUnit4SpringCont
 	BusinessTransaction addStudentToClass;
 
 	@Before
-	public void prepare() {
+	public void prepare() {		
+		
 		executeSqlScript(
 				"classpath:org/slerpio/service/schoolclass/test/AddStudentToClassTest.sql",
 				false);
