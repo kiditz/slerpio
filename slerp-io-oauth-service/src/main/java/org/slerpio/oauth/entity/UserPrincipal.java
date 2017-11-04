@@ -163,8 +163,6 @@ public class UserPrincipal implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-
-
 	@JsonProperty
 	public String getActivationCode() {
 		return activationCode;
@@ -174,6 +172,7 @@ public class UserPrincipal implements Serializable {
 		this.activationCode = activationCode;
 	}
 
+	@JsonProperty
 	public List<UserAuthority> getUserAuthorityList() {
 		return userAuthorityList;
 	}

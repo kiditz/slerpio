@@ -67,7 +67,7 @@ public class SchoolClass {
 
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "classSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<UserProfile> userProfiles = new java.util.HashSet<>();
+	private Set<UserProfile> students = new java.util.HashSet<>();
 
 	@JsonProperty
 	public Long getSchoolClassId() {
@@ -131,12 +131,17 @@ public class SchoolClass {
 		this.taskList = taskList;
 	}
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
+	public Set<UserProfile> getStudents() {
+		return students;
 	}
 
-	@JsonProperty
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
+	public void setStudents(Set<UserProfile> students) {
+		this.students = students;
+	}
+	public void addStudent(UserProfile profile) {
+		if (!students.contains(profile)) {
+			students.add(profile);
+			profile.addClass(this);
+		}
 	}
 }

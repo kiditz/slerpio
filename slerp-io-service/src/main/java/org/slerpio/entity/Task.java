@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class Task {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id")
 	private SchoolClass schoolClassId;
 

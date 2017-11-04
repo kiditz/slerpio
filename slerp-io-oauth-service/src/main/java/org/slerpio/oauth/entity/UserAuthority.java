@@ -68,8 +68,7 @@ public class UserAuthority implements Serializable {
 		this.authority = authority;
 	}
 
-	@JsonProperty
-
+	//@JsonProperty
 	public UserPrincipal getUserId() {
 		return userId;
 	}

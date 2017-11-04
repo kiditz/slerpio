@@ -223,5 +223,10 @@ public class UserProfile implements Serializable {
 			school.addUserProfile(this);
 		}
 	}
-
+	public void addClass(SchoolClass schoolClass) {
+		if (!schoolSet.contains(schoolClass)) {
+			classSet.add(schoolClass);
+			schoolClass.addStudent(this);
+		}
+	}
 }
