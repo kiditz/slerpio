@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+import java.util.UUID;
+
 @RestController
 public class SchoolclassController {
 
@@ -20,11 +22,16 @@ public class SchoolclassController {
 	@Autowired
 	BusinessTransaction addStudentToClass;
 	@Autowired
-	BusinessFunction findSchoolClassByProfileId;
+	BusinessFunction getSchoolClassByProfileId;
+
+	@Autowired
+	BusinessFunction getStudentFromClassId;
 
 	@PostMapping("/addSchoolClass")
 	@ResponseBody
 	public Domain addSchoolClass(@RequestBody Domain schoolclassDomain) {
+		schoolclassDomain.put("code",
+				UUID.randomUUID().toString().substring(0, 8).toUpperCase());
 		schoolclassDomain.put("createdAt", new Date());
 		schoolclassDomain.put("updateAt", new Date());
 		Domain outputDto = addSchoolClass.handle(schoolclassDomain);
@@ -38,12 +45,24 @@ public class SchoolclassController {
 		return outputDto;
 	}
 
-	@GetMapping("/findSchoolClassByProfileId")
+	@GetMapping("/getSchoolClassByProfileId")
 	@ResponseBody
-	public Domain findSchoolClassByProfileId(
+	public Domain getSchoolClassByProfileId(
 			@RequestParam("profileId") Long profileId) {
 		Domain schoolclassDomain = new Domain();
 		schoolclassDomain.put("profileId", profileId);
-		return findSchoolClassByProfileId.handle(schoolclassDomain);
+		return getSchoolClassByProfileId.handle(schoolclassDomain);
+	}
+
+	@GetMapping("/getStudentFromClassId")
+	@ResponseBody
+	public Domain getStudentFromClassId(@RequestParam("size") Integer size,
+			@RequestParam("page") Integer page,
+			@RequestParam("schoolClassId") Long schoolClassId) {
+		Domain schoolclassDomain = new Domain();
+		schoolclassDomain.put("size", size);
+		schoolclassDomain.put("page", page);
+		schoolclassDomain.put("schoolClassId", schoolClassId);
+		return getStudentFromClassId.handle(schoolclassDomain);
 	}
 }

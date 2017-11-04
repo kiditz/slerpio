@@ -57,6 +57,7 @@ public class SchoolClass implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
 	private UserProfile userProfileId;
+
 	@JsonProperty
 	public Long getSchoolClassId() {
 		return schoolClassId;
@@ -84,7 +85,7 @@ public class SchoolClass implements Serializable{
 		this.code = code;
 	}
 
-	@JsonProperty
+	//@JsonProperty
 	public UserProfile getUserProfileId() {
 		return userProfileId;
 	}
@@ -126,6 +127,7 @@ public class SchoolClass implements Serializable{
 	public void setStudents(Set<UserProfile> students) {
 		this.students = students;
 	}
+
 	public void addStudent(UserProfile profile) {
 		if (!students.contains(profile)) {
 			students.add(profile);

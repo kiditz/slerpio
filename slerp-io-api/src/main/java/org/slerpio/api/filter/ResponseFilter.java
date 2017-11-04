@@ -1,6 +1,7 @@
 package org.slerpio.api.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.slerp.core.Domain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,16 @@ public class ResponseFilter implements Filter {
 		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
 		chain.doFilter(requestWrapper, responseWrapper);
+		String requestStr = new String(requestWrapper.getContentAsByteArray());
 		log.info("Address >>> {}", request.getRemoteAddr());
 		log.info("Host >>> {}", request.getRemoteHost());
-		log.info("Port >>> {}", request.getRemotePort());			
+		log.info("Port >>> {}", request.getRemotePort());
+		// log.info("Header >>> {}", request.getHeaderNames().nextElement());
+		Enumeration<String> enumHeader = request.getHeaderNames();
+		while (enumHeader.hasMoreElements()) {
+			log.info("Header >>> {}", enumHeader.nextElement());
+		}
+		log.info("Request >>> {}", requestStr);
 		String responseStr = new String(responseWrapper.getContentAsByteArray());
 		if (responseStr != null && responseStr.length() > 0) {
 			log.info("Response >>> {}", responseStr);

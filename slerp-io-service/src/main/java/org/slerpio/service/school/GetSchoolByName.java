@@ -26,7 +26,7 @@ public class GetSchoolByName extends DefaultBusinessFunction {
 		int page = schoolDomain.getInt("page");
 		int size = schoolDomain.getInt("size");
 		String name = schoolDomain.getString("name").toUpperCase();
-		Page<School> schoolPage = schoolRepository.getSchoolByName("%" + name + "%", new PageRequest(page, size));
+		Page<School> schoolPage = schoolRepository.getSchoolByName(name, new PageRequest(page, size));
 		return new Domain(schoolPage);
 	}
 }

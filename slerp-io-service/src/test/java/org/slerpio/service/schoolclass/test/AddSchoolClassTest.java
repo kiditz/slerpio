@@ -1,6 +1,7 @@
 package org.slerpio.service.schoolclass.test;
 
-import org.assertj.core.api.Assertions;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-
-import java.util.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -54,8 +53,17 @@ public class AddSchoolClassTest
 		schoolClassDomain.put("createdAt", new Date());
 		schoolClassDomain.put("updateAt", new Date());
 		Domain outputSchoolClass = addSchoolClass.handle(schoolClassDomain);
-		log.info("Result Test {}", outputSchoolClass);
-		Assertions.assertThat(schoolClassDomain.get("code")).isEqualTo(code);
-		Assertions.assertThat(schoolClassDomain.get("name")).isEqualTo(name);
+		log.info("result 1 >>> {}", outputSchoolClass);
+		code = "HSAD5648";
+		name = "Kelas IPA 2";
+		userProfileId = 1l;
+		schoolClassDomain = new Domain();
+		schoolClassDomain.put("code", code);
+		schoolClassDomain.put("name", name);
+		schoolClassDomain.put("userProfileId", userProfileId);
+		schoolClassDomain.put("createdAt", new Date());
+		schoolClassDomain.put("updateAt", new Date());
+		outputSchoolClass = addSchoolClass.handle(schoolClassDomain);
+		log.info("result 2 >>> {}", outputSchoolClass);
 	}
 }

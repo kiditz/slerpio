@@ -26,10 +26,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
 @RestControllerAdvice
-public class RestExceptionHandler {
-	public class TemplateConfig {
-
-	}
+public class RestExceptionHandler {	
 
 	@Autowired
 	MessageSource messageSource;
@@ -74,8 +71,8 @@ public class RestExceptionHandler {
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<ErrorItem> constraintViolationHandler(DataIntegrityViolationException e) {
-
 		log.error("DataIntegrityViolationException : {}", e.getMessage());
+		log.error("DataIntegrityViolationException : >>> {}", e);
 		ErrorItem item = new ErrorItem(1, e.getMessage());
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}

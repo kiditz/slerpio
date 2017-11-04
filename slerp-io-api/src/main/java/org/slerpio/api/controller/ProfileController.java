@@ -30,6 +30,7 @@ public class ProfileController {
 	@PostMapping("/addUserProfile")
 	@ResponseBody
 	public Domain addUserProfile(@RequestBody Domain profileDomain) {
+		profileDomain.put("authority", "STUDENT");
 		profileDomain.put("active", "Y");
 		profileDomain.put("activeAt", new Date());
 		profileDomain.put("createdAt", new Date());

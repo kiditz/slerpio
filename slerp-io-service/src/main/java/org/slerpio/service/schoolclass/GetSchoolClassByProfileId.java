@@ -10,20 +10,22 @@ import org.slerp.core.Domain;
 import org.slerpio.repository.SchoolClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 @KeyValidation("profileId")
 @NumberValidation({})
 @NotBlankValidation({})
-public class FindSchoolClassByProfileId extends DefaultBusinessFunction {
+public class GetSchoolClassByProfileId extends DefaultBusinessFunction {
 
 	@Autowired
 	SchoolClassRepository schoolClassRepository;
 
 	@Override
 	public Domain handle(Domain schoolClassDomain) {
-		SchoolClass schoolClass = schoolClassRepository
+		List<SchoolClass> schoolClass = schoolClassRepository
 				.findSchoolClassByProfileId(schoolClassDomain
 						.getLong("profileId"));
-		return new Domain(schoolClass);
+		return new Domain().put("classList", schoolClass);
 	}
 }
