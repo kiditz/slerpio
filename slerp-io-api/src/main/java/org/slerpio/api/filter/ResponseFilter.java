@@ -33,7 +33,7 @@ public class ResponseFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
-		chain.doFilter(request, responseWrapper);
+		chain.doFilter(requestWrapper, responseWrapper);
 		log.info("Address >>> {}", request.getRemoteAddr());
 		log.info("Host >>> {}", request.getRemoteHost());
 		log.info("Port >>> {}", request.getRemotePort());			
