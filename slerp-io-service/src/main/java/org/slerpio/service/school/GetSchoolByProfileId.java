@@ -1,16 +1,16 @@
 package org.slerpio.service.school;
 
-import org.slerp.core.business.DefaultBusinessFunction;
-import org.slerpio.entity.School;
-import org.slerpio.entity.UserProfile;
-import org.springframework.stereotype.Service;
-import org.slerp.core.validation.KeyValidation;
-import org.slerp.core.validation.NumberValidation;
-import org.slerp.core.validation.NotBlankValidation;
+import java.util.List;
+
 import org.slerp.core.Domain;
+import org.slerp.core.business.DefaultBusinessFunction;
+import org.slerp.core.validation.KeyValidation;
+import org.slerp.core.validation.NotBlankValidation;
+import org.slerp.core.validation.NumberValidation;
+import org.slerpio.entity.School;
 import org.slerpio.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 @KeyValidation("profileId")

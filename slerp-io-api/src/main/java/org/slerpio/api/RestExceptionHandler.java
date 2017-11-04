@@ -2,10 +2,10 @@ package org.slerpio.api;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.slerp.core.CoreException;
 import org.slerp.core.Domain;
 import org.slf4j.Logger;
