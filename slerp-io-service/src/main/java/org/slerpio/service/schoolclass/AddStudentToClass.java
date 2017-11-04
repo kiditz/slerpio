@@ -1,4 +1,4 @@
-package org.slerpio.service.profile;
+package org.slerpio.service.schoolclass;
 
 import org.slerp.core.CoreException;
 import org.slerp.core.Domain;
@@ -49,7 +49,7 @@ public class AddStudentToClass extends DefaultBusinessTransaction {
 		UserProfile profile = schoolClassDomain.getDomain("profile").convertTo(UserProfile.class);
 		SchoolClass schoolClass = schoolClassDomain.getDomain("class").convertTo(SchoolClass.class);
 		schoolClass.addStudent(profile);
-		schoolClass = schoolClassRepository.save(schoolClass);
+		schoolClass = schoolClassRepository.saveAndFlush(schoolClass);
 		return new Domain(schoolClass);
 	}
 }

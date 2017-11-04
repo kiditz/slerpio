@@ -1,29 +1,18 @@
 package org.slerpio.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.GenerationType;
-import javax.persistence.Basic;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -33,7 +22,7 @@ import org.slerpio.entity.Task;
 @Table(name = "school_class")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class SchoolClass {
+public class SchoolClass implements Serializable{
 
 	@Id
 	@Column(name = "school_class_id")
@@ -49,10 +38,7 @@ public class SchoolClass {
 	@NotNull(message = "org.slerpio.entity.SchoolClass.code")
 	@Size(min = 1, max = 8)
 	private String code;
-	@Column(name = "user_profile_id")
-	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.SchoolClass.userProfileId")
-	private Long userProfileId;
+	
 	@Column(name = "created_at")
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.SchoolClass.createdAt")
@@ -68,7 +54,9 @@ public class SchoolClass {
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "classSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserProfile> students = new java.util.HashSet<>();
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
+	private UserProfile userProfileId;
 	@JsonProperty
 	public Long getSchoolClassId() {
 		return schoolClassId;
@@ -97,11 +85,11 @@ public class SchoolClass {
 	}
 
 	@JsonProperty
-	public Long getUserProfileId() {
+	public UserProfile getUserProfileId() {
 		return userProfileId;
 	}
 
-	public void setUserProfileId(Long userProfileId) {
+	public void setUserProfileId(UserProfile userProfileId) {
 		this.userProfileId = userProfileId;
 	}
 

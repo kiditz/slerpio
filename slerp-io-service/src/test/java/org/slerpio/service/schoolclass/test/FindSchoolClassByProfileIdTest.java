@@ -1,4 +1,4 @@
-package org.slerpio.service.profile.test;
+package org.slerpio.service.schoolclass.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,30 +24,31 @@ import org.assertj.core.api.Assertions;
 		TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class FindProfileByIdTest
+public class FindSchoolClassByProfileIdTest
 		extends
 			AbstractTransactionalJUnit4SpringContextTests {
 
 	static private Logger log = LoggerFactory
-			.getLogger(FindProfileByIdTest.class);
+			.getLogger(FindSchoolClassByProfileIdTest.class);
 	@Autowired
-	BusinessFunction findProfileById;
+	BusinessFunction findSchoolClassByProfileId;
 
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/service/profile/test/FindProfileByIdTest.sql",
+				"classpath:org/slerpio/service/schoolclass/test/FindSchoolClassByProfileIdTest.sql",
 				false);
 	}
 
 	@Test
 	public void testSuccess() {
 		Long profileId = 1l;
-		Domain userProfileDomain = new Domain();
-		userProfileDomain.put("profileId", profileId);
-		Domain outputUserProfile = findProfileById.handle(userProfileDomain);
-		log.info("Result Test {}", outputUserProfile);
-		Assertions.assertThat(userProfileDomain.get("profileId")).isEqualTo(
+		Domain schoolClassDomain = new Domain();
+		schoolClassDomain.put("profileId", profileId);
+		Domain outputSchoolClass = findSchoolClassByProfileId
+				.handle(schoolClassDomain);
+		log.info("Result Test {}", outputSchoolClass);
+		Assertions.assertThat(schoolClassDomain.get("profileId")).isEqualTo(
 				profileId);
 	}
 }

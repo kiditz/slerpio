@@ -9,19 +9,25 @@ import org.slerp.core.validation.NotBlankValidation;
 import org.slerp.core.Domain;
 import org.slerpio.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @Service
-@KeyValidation("phoneNumber")
+@KeyValidation({"fullname", "page", "size"})
 @NumberValidation({})
 @NotBlankValidation({})
-public class FindProfileByPhoneNumber extends DefaultBusinessFunction {
+public class GetProfileByName extends DefaultBusinessFunction {
 
 	@Autowired
 	UserProfileRepository userProfileRepository;
 
 	@Override
 	public Domain handle(Domain userProfileDomain) {
-		UserProfile userProfile = userProfileRepository.findProfileByPhoneNumber(userProfileDomain.getString("phoneNumber"));
-		return new Domain().put("userProfile", userProfile);
+		int page = userProfileDomain.getInt("page");
+		int size = userProfileDomain.getInt("size");
+		Page<UserProfile> userProfilePage = userProfileRepository
+				.getProfileByName(userProfileDomain.getString("fullname"),
+						new PageRequest(page, size));
+		return new Domain().put("userProfilePage", userProfilePage);
 	}
 }

@@ -1,4 +1,4 @@
-package org.slerp.oauth.service.oauth2.test;
+package org.slerpio.service.profile.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,30 +24,36 @@ import org.assertj.core.api.Assertions;
 		TransactionalTestExecutionListener.class,
 		DependencyInjectionTestExecutionListener.class}, inheritListeners = false)
 @Rollback
-public class FindClientByClientIdTest
+public class GetProfileByNameTest
 		extends
 			AbstractTransactionalJUnit4SpringContextTests {
 
 	static private Logger log = LoggerFactory
-			.getLogger(FindClientByClientIdTest.class);
+			.getLogger(GetProfileByNameTest.class);
 	@Autowired
-	BusinessFunction findClientByClientId;
+	BusinessFunction getProfileByName;
 
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/oauth/service/oauth2/test/FindClientByClientIdTest.sql",
+				"classpath:org/slerpio/service/profile/test/GetProfileByNameTest.sql",
 				false);
 	}
 
 	@Test
 	public void testSuccess() {
-		String clientId = "26fb9f8d36b892e043f4a8b107809ac2960e73e0";
-		Domain clientDomain = new Domain();
-		clientDomain.put("clientId", clientId);
-		log.info("Request {}", clientDomain);
-		Domain outputClient = findClientByClientId.handle(clientDomain);
-		log.info("Result Test {}", outputClient);
-		Assertions.assertThat(clientDomain.get("clientId")).isEqualTo(clientId);
+		String fullname = "adit";
+		Integer size = 10;
+		Integer page = 0;
+		Domain userProfileDomain = new Domain();
+		userProfileDomain.put("fullname", fullname);
+		userProfileDomain.put("size", size);
+		userProfileDomain.put("page", page);
+		Domain outputUserProfile = getProfileByName.handle(userProfileDomain);
+		log.info("Result Test {}", outputUserProfile);
+		Assertions.assertThat(userProfileDomain.get("fullname")).isEqualTo(
+				fullname);
+		Assertions.assertThat(userProfileDomain.get("size")).isEqualTo(size);
+		Assertions.assertThat(userProfileDomain.get("page")).isEqualTo(page);
 	}
 }

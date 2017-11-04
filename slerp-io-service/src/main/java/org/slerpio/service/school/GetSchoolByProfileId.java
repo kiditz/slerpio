@@ -1,6 +1,7 @@
-package org.slerpio.service.profile;
+package org.slerpio.service.school;
 
 import org.slerp.core.business.DefaultBusinessFunction;
+import org.slerpio.entity.School;
 import org.slerpio.entity.UserProfile;
 import org.springframework.stereotype.Service;
 import org.slerp.core.validation.KeyValidation;
@@ -9,19 +10,20 @@ import org.slerp.core.validation.NotBlankValidation;
 import org.slerp.core.Domain;
 import org.slerpio.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 @Service
-@KeyValidation("phoneNumber")
+@KeyValidation("profileId")
 @NumberValidation({})
 @NotBlankValidation({})
-public class FindProfileByPhoneNumber extends DefaultBusinessFunction {
+public class GetSchoolByProfileId extends DefaultBusinessFunction {
 
 	@Autowired
 	UserProfileRepository userProfileRepository;
 
 	@Override
 	public Domain handle(Domain userProfileDomain) {
-		UserProfile userProfile = userProfileRepository.findProfileByPhoneNumber(userProfileDomain.getString("phoneNumber"));
-		return new Domain().put("userProfile", userProfile);
+		List<School> userProfileList = userProfileRepository.findSchoolByProfileId(userProfileDomain.getLong("profileId"));
+		return new Domain().put("schoolList", userProfileList);
 	}
 }

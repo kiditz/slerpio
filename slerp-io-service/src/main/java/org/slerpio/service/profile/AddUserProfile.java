@@ -31,7 +31,6 @@ public class AddUserProfile extends DefaultBusinessTransaction {
 
 	@Override
 	public void prepare(Domain userProfileDomain) throws Exception {
-
 		if (userProfileDomain.containsKey("schoolId")) {
 			Domain schoolDomain = userProfileDomain.getDomain("schoolId");
 			School schoolId = schoolDomain.convertTo(School.class);
@@ -41,28 +40,24 @@ public class AddUserProfile extends DefaultBusinessTransaction {
 			}
 			userProfileDomain.put("schoolId", new Domain(schoolId));
 		}
+		String phoneNumber = userProfileDomain.getString("phoneNumber");
+		log.info("Phone Number >>> {}", phoneNumber);
+		log.info("Exists >>> {}",userProfileRepository.isExistsByPhoneNumber(phoneNumber));
+		if (userProfileRepository.isExistsByPhoneNumber(phoneNumber)) {
+			throw new CoreException(ServiceConstant.PHONE_NUMBER_EXISTS);
+		}
 	}
 
 	@Override
 	public Domain handle(Domain userProfileDomain) {
 		super.handle(userProfileDomain);
-
-		try {
-			String phoneNumber = userProfileDomain.getString("phoneNumber");
-			if (userProfileRepository.isExistsByPhoneNumber(phoneNumber)) {
-				throw new CoreException(ServiceConstant.PHONE_NUMBER_EXISTS);
-			}
-			UserProfile userProfile = userProfileDomain.convertTo(UserProfile.class);
-			
-			if (userProfileDomain.containsKey("schoolId")) {
-				School school = userProfileDomain.getDomain("schoolId").convertTo(School.class);
-				userProfile.addSchool(school);
-			}
-			log.info("Input >>> {}", userProfileDomain);
-			userProfile = userProfileRepository.save(userProfile);
-			return new Domain(userProfile);
-		} catch (Exception e) {
-			throw new CoreException(e);
+		UserProfile userProfile = userProfileDomain.convertTo(UserProfile.class);
+		if (userProfileDomain.containsKey("schoolId")) {
+			School school = userProfileDomain.getDomain("schoolId").convertTo(School.class);
+			userProfile.addSchool(school);
 		}
+		log.info("Input >>> {}", userProfileDomain);
+		userProfile = userProfileRepository.save(userProfile);
+		return new Domain(userProfile);
 	}
 }

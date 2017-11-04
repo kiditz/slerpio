@@ -1,5 +1,6 @@
 package org.slerpio.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "task")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class Task {
+public class Task implements Serializable {
 
 	@Id
 	@Column(name = "task_id")

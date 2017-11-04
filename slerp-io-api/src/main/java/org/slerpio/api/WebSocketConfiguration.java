@@ -9,7 +9,7 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSockerConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
+public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {

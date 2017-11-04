@@ -1,4 +1,4 @@
-package org.slerpio.service.profile.test;
+package org.slerpio.service.schoolclass.test;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -18,6 +18,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.util.Date;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 @TestExecutionListeners(listeners = {DirtiesContextTestExecutionListener.class,
@@ -36,7 +38,7 @@ public class AddSchoolClassTest
 	@Before
 	public void prepare() {
 		executeSqlScript(
-				"classpath:org/slerpio/service/profile/test/AddSchoolClassTest.sql",
+				"classpath:org/slerpio/service/schoolclass/test/AddSchoolClassTest.sql",
 				false);
 	}
 
@@ -49,11 +51,11 @@ public class AddSchoolClassTest
 		schoolClassDomain.put("code", code);
 		schoolClassDomain.put("name", name);
 		schoolClassDomain.put("userProfileId", userProfileId);
+		schoolClassDomain.put("createdAt", new Date());
+		schoolClassDomain.put("updateAt", new Date());
 		Domain outputSchoolClass = addSchoolClass.handle(schoolClassDomain);
 		log.info("Result Test {}", outputSchoolClass);
 		Assertions.assertThat(schoolClassDomain.get("code")).isEqualTo(code);
 		Assertions.assertThat(schoolClassDomain.get("name")).isEqualTo(name);
-		Assertions.assertThat(schoolClassDomain.get("userProfileId"))
-				.isEqualTo(userProfileId);
 	}
 }
