@@ -199,7 +199,7 @@ public class UserProfile implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	@JsonProperty
+	//@JsonProperty
 	public Set<School> getSchoolSet() {
 		return schoolSet;
 	}
