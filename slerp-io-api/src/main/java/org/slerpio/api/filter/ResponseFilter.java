@@ -42,7 +42,7 @@ public class ResponseFilter implements Filter {
 		// log.info("Header >>> {}", request.getHeaderNames().nextElement());
 		Enumeration<String> enumHeader = request.getHeaderNames();
 		while (enumHeader.hasMoreElements()) {
-			log.info("Header >>> {}", enumHeader.nextElement());
+			log.info("Header >>> {}", enumHeader.nextElement() + ":" + request.getHeader(enumHeader.nextElement()));
 		}
 		log.info("Request >>> {}", requestStr);
 		String responseStr = new String(responseWrapper.getContentAsByteArray());
