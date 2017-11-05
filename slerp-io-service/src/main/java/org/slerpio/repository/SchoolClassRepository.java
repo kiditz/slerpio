@@ -20,4 +20,8 @@ public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> 
 	public Page<UserProfile> getStudentFromClassId(
 			@Param("schoolClassId") Long schoolClassId, Pageable pageable);
 
+	@Query("SELECT c FROM SchoolClass c WHERE c.schoolId.schoolId = :schoolId")
+	public List<SchoolClass> getSchoolClassBySchoolId(
+			@Param("schoolId") Long schoolId);
+
 }

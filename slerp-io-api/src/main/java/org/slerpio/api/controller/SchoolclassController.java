@@ -27,6 +27,9 @@ public class SchoolclassController {
 	@Autowired
 	BusinessFunction getStudentFromClassId;
 
+	@Autowired
+	BusinessFunction getSchoolClassBySchoolId;
+
 	@PostMapping("/addSchoolClass")
 	@ResponseBody
 	public Domain addSchoolClass(@RequestBody Domain schoolclassDomain) {
@@ -64,5 +67,14 @@ public class SchoolclassController {
 		schoolclassDomain.put("page", page);
 		schoolclassDomain.put("schoolClassId", schoolClassId);
 		return getStudentFromClassId.handle(schoolclassDomain);
+	}
+
+	@GetMapping("/getSchoolClassBySchoolId")
+	@ResponseBody
+	public Domain getSchoolClassBySchoolId(
+			@RequestParam("schoolId") Long schoolId) {
+		Domain schoolclassDomain = new Domain();
+		schoolclassDomain.put("schoolId", schoolId);
+		return getSchoolClassBySchoolId.handle(schoolclassDomain);
 	}
 }
