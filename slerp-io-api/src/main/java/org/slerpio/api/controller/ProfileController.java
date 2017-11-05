@@ -27,6 +27,9 @@ public class ProfileController {
 	@Autowired
 	BusinessFunction findProfileByPhoneNumber;
 
+	@Autowired
+	BusinessFunction getStudentNotHaveClass;
+
 	@PostMapping("/addUserProfile")
 	@ResponseBody
 	public Domain addUserProfile(@RequestBody Domain profileDomain) {
@@ -75,5 +78,15 @@ public class ProfileController {
 		Domain profileDomain = new Domain();
 		profileDomain.put("phoneNumber", phoneNumber);
 		return findProfileByPhoneNumber.handle(profileDomain);
+	}
+
+	@GetMapping("/getStudentNotHaveClass")
+	@ResponseBody
+	public Domain getStudentNotHaveClass(@RequestParam("classId") Long classId,
+			@RequestParam("fullname") String fullname) {
+		Domain profileDomain = new Domain();
+		profileDomain.put("classId", classId);
+		profileDomain.put("fullname", fullname);
+		return getStudentNotHaveClass.handle(profileDomain);
 	}
 }

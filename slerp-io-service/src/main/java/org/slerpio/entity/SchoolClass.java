@@ -54,6 +54,7 @@ public class SchoolClass implements Serializable {
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "classSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<UserProfile> students = new java.util.HashSet<>();
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
 	private UserProfile userProfileId;

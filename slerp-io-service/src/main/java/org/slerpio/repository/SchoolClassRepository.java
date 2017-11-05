@@ -13,15 +13,14 @@ import org.springframework.data.domain.Pageable;
 public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> {
 
 	@Query("SELECT c FROM SchoolClass c WHERE c.userProfileId.profileId = :profileId")
-	public List<SchoolClass> findSchoolClassByProfileId(
-			@Param("profileId") Long profileId);
+	public List<SchoolClass> findSchoolClassByProfileId(@Param("profileId") Long profileId);
 
 	@Query("SELECT s FROM SchoolClass c JOIN c.students s WHERE c.schoolClassId = :schoolClassId")
-	public Page<UserProfile> getStudentFromClassId(
-			@Param("schoolClassId") Long schoolClassId, Pageable pageable);
+	public Page<UserProfile> getStudentFromClassId(@Param("schoolClassId") Long schoolClassId, Pageable pageable);
 
 	@Query("SELECT c FROM SchoolClass c WHERE c.schoolId.schoolId = :schoolId")
-	public List<SchoolClass> getSchoolClassBySchoolId(
-			@Param("schoolId") Long schoolId);
+	public List<SchoolClass> getSchoolClassBySchoolId(@Param("schoolId") Long schoolId);
+
+
 
 }

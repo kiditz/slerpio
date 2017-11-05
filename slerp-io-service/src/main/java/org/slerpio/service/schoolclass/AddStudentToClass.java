@@ -28,7 +28,6 @@ public class AddStudentToClass extends DefaultBusinessTransaction {
 	UserProfileRepository profileRepository;
 	@Override
 	public void prepare(Domain schoolClassDomain) throws Exception {
-
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class AddStudentToClass extends DefaultBusinessTransaction {
 		UserProfile profile = profileRepository.findOne(profileId);
 		if(profile == null)
 			throw new CoreException(ServiceConstant.PROFILE_NOT_FOUND);
-
 		schoolClass.addStudent(profile);
 		schoolClass = schoolClassRepository.saveAndFlush(schoolClass);
 		return new Domain(schoolClass);
