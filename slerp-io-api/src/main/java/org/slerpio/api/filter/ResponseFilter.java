@@ -35,31 +35,38 @@ public class ResponseFilter implements Filter {
 		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
 		chain.doFilter(requestWrapper, responseWrapper);
-		String requestStr = new String(requestWrapper.getContentAsByteArray());
+
 		log.info("Address >>> {}", request.getRemoteAddr());
 		log.info("Host >>> {}", request.getRemoteHost());
 		log.info("Port >>> {}", request.getRemotePort());
 		// log.info("Header >>> {}", request.getHeaderNames().nextElement());
 		Enumeration<String> enumHeader = request.getHeaderNames();
-		while (enumHeader.hasMoreElements()) {
-			log.info("Header >>> {}", enumHeader.nextElement() + ":" + request.getHeader(enumHeader.nextElement()));
+		if (enumHeader != null) {
+			while (enumHeader.hasMoreElements()) {
+				String headerKey =  enumHeader.nextElement();
+				log.info("Header >>> {}",headerKey + ": " + requestWrapper.getHeader(headerKey));
+			}
 		}
+		String requestStr = new String(requestWrapper.getContentAsByteArray());
 		log.info("Request >>> {}", requestStr);
 		String responseStr = new String(responseWrapper.getContentAsByteArray());
 		if (responseStr != null && responseStr.length() > 0) {
 			log.info("Response >>> {}", responseStr);
-			Domain responseDomain = new Domain(responseStr);
-			response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-			if (responseDomain.containsKey("status") && responseDomain.getInt("status") == 1) {
-				response.getWriter().write(responseStr);
-			} else {
-				Domain successDomain = new Domain();
-				successDomain.put("status", 0);
-				successDomain.put("body", responseDomain);
-				response.getWriter().write(successDomain.toString());
+			try{
+				Domain responseDomain = new Domain(responseStr);
+				response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+				if (responseDomain.containsKey("status") && responseDomain.getInt("status") == 1) {
+					response.getWriter().write(responseStr);
+				} else {
+					Domain successDomain = new Domain();
+					successDomain.put("status", 0);
+					successDomain.put("body", responseDomain);
+					response.getWriter().write(successDomain.toString());
+				}
+				response.getWriter().close();
+			}catch(Exception e){
+				//IGNORE
 			}
-			response.getWriter().close();
 		}
 
 	}

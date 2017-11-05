@@ -22,7 +22,7 @@ import org.slerpio.entity.Task;
 @Table(name = "school_class")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class SchoolClass implements Serializable{
+public class SchoolClass implements Serializable {
 
 	@Id
 	@Column(name = "school_class_id")
@@ -38,7 +38,7 @@ public class SchoolClass implements Serializable{
 	@NotNull(message = "org.slerpio.entity.SchoolClass.code")
 	@Size(min = 1, max = 8)
 	private String code;
-	
+
 	@Column(name = "created_at")
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.SchoolClass.createdAt")
@@ -57,6 +57,9 @@ public class SchoolClass implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
 	private UserProfile userProfileId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
+	private School schoolId;
 
 	@JsonProperty
 	public Long getSchoolClassId() {
@@ -85,7 +88,7 @@ public class SchoolClass implements Serializable{
 		this.code = code;
 	}
 
-	//@JsonProperty
+	// @JsonProperty
 	public UserProfile getUserProfileId() {
 		return userProfileId;
 	}
@@ -133,5 +136,13 @@ public class SchoolClass implements Serializable{
 			students.add(profile);
 			profile.addClass(this);
 		}
+	}
+
+	public School getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(School schoolId) {
+		this.schoolId = schoolId;
 	}
 }
