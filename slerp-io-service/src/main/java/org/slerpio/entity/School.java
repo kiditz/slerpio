@@ -1,8 +1,8 @@
 package org.slerpio.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "school")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class School implements Serializable {
+public class School  {
 
 	@Id
 	@Column(name = "school_id")
@@ -73,6 +74,9 @@ public class School implements Serializable {
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "schoolSet", cascade = CascadeType.ALL)
 	private Set<UserProfile> userProfiles = new java.util.HashSet<>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "schoolId")
+	private List<Task> taskList;
 
 	@JsonProperty
 	public Long getSchoolId() {
@@ -177,5 +181,13 @@ public class School implements Serializable {
 			userProfiles.add(profile);
 			profile.addSchool(this);
 		}
+	}
+
+	public List<Task> getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(List<Task> taskList) {
+		this.taskList = taskList;
 	}
 }

@@ -1,0 +1,54 @@
+{
+  "title": "Tugas bahasa",
+  "description": "Tugas bahasa",
+  "userProfileId":1,
+  "schoolId":1,
+  "schoolClassId":1,
+  "questions": [
+    {
+      "question": "Bagaimanakah kamu memiliki dia?",
+      "answers": [
+        1,
+        3,
+        4, 
+        5
+      ],
+      "answeredKey": "i miss you"
+    },
+    {
+      "question": "apakah saya adalah kamu",
+      "answers": [
+        "yah",
+        "bukan",
+        "tidak",
+        "bisa jadi"
+      ],
+      "answeredKey": "bisa jadi"
+    },
+    {
+      "question": "bisakah kita bahagia?",
+      "answers": [
+        "yah",
+        "tidak",
+        "mungkin",
+        "bisa jadi"
+      ],
+      "answeredKey": "mungkin"
+    },
+    {
+      "question": "apakah ada orang disana?s",
+      "answers": [
+        "yah",
+        "tidak"
+      ],
+      "answeredKey": "tidak"
+    },
+    {
+      "question": "bagaimana jika x &lt; y",
+      "answers": [
+        "bmaka y = 1"
+      ],
+      "answeredKey": "bmaka y = 1"
+    }
+  ]
+}
