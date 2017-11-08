@@ -10,8 +10,14 @@ import org.springframework.data.jpa.repository.Query;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
 	@Query("SELECT t FROM Task t JOIN t.studentFinishingTaskList s WHERE s.userProfileId.profileId = :userProfileId AND s.flgFinish = 'N'")
-	public Page<Task> getTaskFromProfile(@Param("userProfileId") Long profileId, Pageable pageable);
+	public Page<Task> getTaskFromProfile(
+			@Param("userProfileId") Long profileId, Pageable pageable);
 
 	@Query("SELECT t FROM Task t WHERE t.schoolId.schoolId = :schoolId")
-	public Page<Task> getTaskFromSchool(@Param("schoolId") long schoolId, Pageable pageable);
+	public Page<Task> getTaskFromSchool(@Param("schoolId") long schoolId,
+			Pageable pageable);
+
+	@Query("SELECT t FROM Task t WHERE t.userProfileId.profileId = :profileId")
+	public Page<Task> getTaskByTeacher(@Param("profileId") Long profileId,
+			Pageable pageable);
 }
