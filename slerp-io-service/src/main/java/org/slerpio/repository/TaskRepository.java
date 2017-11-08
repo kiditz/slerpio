@@ -20,4 +20,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	@Query("SELECT t FROM Task t WHERE t.userProfileId.profileId = :profileId")
 	public Page<Task> getTaskByTeacher(@Param("profileId") Long profileId,
 			Pageable pageable);
+
+	@Query("SELECT t FROM Task t WHERE t.schoolClassId.schoolClassId = :classId")
+	public Page<Task> getTaskFromClass(@Param("classId") long classId,
+			Pageable pageable);
 }
