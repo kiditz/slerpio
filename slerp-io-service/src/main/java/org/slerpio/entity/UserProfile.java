@@ -1,12 +1,13 @@
 package org.slerpio.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,12 +32,13 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slerpio.entity.StudentFinishingTask;
 
 @Entity
 @Table(name = "user_profile")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class UserProfile implements Serializable {
+public class UserProfile {
 
 	@Id
 	@Column(name = "user_profile_id")
@@ -46,7 +49,7 @@ public class UserProfile implements Serializable {
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.UserProfile.phoneNumber")
 	private String phoneNumber;
-		@Column(name = "fullname")
+	@Column(name = "fullname")
 	@Basic(optional = false)
 	@NotNull(message = "org.slerpio.entity.UserProfile.fullname")
 	private String fullname;
@@ -90,6 +93,12 @@ public class UserProfile implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "class_student", joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id"), inverseJoinColumns = @JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id"))
 	private Set<SchoolClass> classSet = new HashSet<>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId")
+	private List<Task> taskList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId")
+	private List<StudentFinishingTask> studentFinishingTaskList;
 
 	@JsonProperty
 	public Long getProfileId() {
@@ -199,7 +208,7 @@ public class UserProfile implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	//@JsonProperty
+	// @JsonProperty
 	public Set<School> getSchoolSet() {
 		return schoolSet;
 	}
@@ -208,7 +217,7 @@ public class UserProfile implements Serializable {
 		this.schoolSet = schoolSet;
 	}
 
-	//@JsonProperty
+	// @JsonProperty
 	public Set<SchoolClass> getClassSet() {
 		return classSet;
 	}
@@ -229,5 +238,22 @@ public class UserProfile implements Serializable {
 			classSet.add(schoolClass);
 			schoolClass.addStudent(this);
 		}
+	}
+
+	public List<Task> getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(List<Task> taskList) {
+		this.taskList = taskList;
+	}
+
+	public List<StudentFinishingTask> getStudentFinishingTaskList() {
+		return studentFinishingTaskList;
+	}
+
+	public void setStudentFinishingTaskList(
+			List<StudentFinishingTask> studentFinishingTaskList) {
+		this.studentFinishingTaskList = studentFinishingTaskList;
 	}
 }

@@ -82,10 +82,8 @@ public class ProfileController {
 
 	@GetMapping("/getStudentNotHaveClass")
 	@ResponseBody
-	public Domain getStudentNotHaveClass(@RequestParam("classId") Long classId,
-			@RequestParam("fullname") String fullname) {
-		Domain profileDomain = new Domain();
-		profileDomain.put("classId", classId);
+	public Domain getStudentNotHaveClass(@RequestParam("fullname") String fullname) {
+		Domain profileDomain = new Domain();		
 		profileDomain.put("fullname", fullname);
 		return getStudentNotHaveClass.handle(profileDomain);
 	}

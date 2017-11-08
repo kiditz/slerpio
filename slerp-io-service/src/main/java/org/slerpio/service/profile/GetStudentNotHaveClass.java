@@ -22,10 +22,9 @@ public class GetStudentNotHaveClass extends DefaultBusinessFunction {
 	UserProfileRepository userProfileRepository;
 
 	@Override
-	public Domain handle(Domain userProfileDomain) {
-		Long classId = userProfileDomain.getLong("classId");
+	public Domain handle(Domain userProfileDomain) {		
 		String fullname = userProfileDomain.getString("fullname");
-		List<UserProfile> userProfileList = userProfileRepository.getStudentNotHaveClass(classId, fullname);
+		List<UserProfile> userProfileList = userProfileRepository.getStudentNotHaveClass(fullname);
 		return new Domain().put("students", userProfileList);
 	}
 }

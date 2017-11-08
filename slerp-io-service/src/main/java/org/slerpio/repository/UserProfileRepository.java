@@ -28,7 +28,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
 
 	@Query(value = "SELECT p.user_profile_id, p.phone_number, p.fullname, p.gender, p.address, p.authority, p.latitude, p.longitude, p.active, p.active_at, p.created_at, p.update_at FROM user_profile p\n" + 
 			" LEFT OUTER JOIN class_student s ON p.user_profile_id = s.user_profile_id\n" + 
-			" WHERE UPPER(p.fullname) LIKE CONCAT('%',UPPER(:fullname),'%') AND s.school_class_id != :classId OR s.school_class_id IS NULL AND p.authority = 'STUDENT'", nativeQuery = true)
-	public List<UserProfile> getStudentNotHaveClass(@Param("classId") Long classId, @Param("fullname") String fullname);
+			" WHERE UPPER(p.fullname) LIKE CONCAT('%',UPPER(:fullname),'%') AND s.school_class_id IS NULL AND p.authority = 'STUDENT' ORDER BY p.user_profile_id DESC", nativeQuery = true)
+	public List<UserProfile> getStudentNotHaveClass(@Param("fullname") String fullname);
 
 }

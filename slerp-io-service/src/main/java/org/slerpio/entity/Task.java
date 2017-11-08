@@ -1,33 +1,34 @@
 package org.slerpio.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GenerationType;
+import javax.persistence.Basic;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import java.util.List;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import org.slerpio.entity.TaskQuestion;
+import org.slerpio.entity.StudentFinishingTask;
 
 @Entity
 @Table(name = "task")
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @XmlAccessorType(XmlAccessType.NONE)
-public class Task implements Serializable {
+public class Task {
 
 	@Id
 	@Column(name = "task_id")
@@ -50,10 +51,21 @@ public class Task implements Serializable {
 	@NotNull(message = "org.slerpio.entity.Task.updateAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id")
 	private SchoolClass schoolClassId;
+	@ManyToOne
+	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
+	private UserProfile userProfileId;
+	@ManyToOne
+	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
+	private School schoolId;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
+	private List<TaskQuestion> taskQuestionList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
+	private List<StudentFinishingTask> studentFinishingTaskList;
 
 	@JsonProperty
 	public Long getTaskId() {
@@ -100,12 +112,47 @@ public class Task implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	@JsonProperty
+	// @JsonProperty
 	public SchoolClass getSchoolClassId() {
 		return schoolClassId;
 	}
 
 	public void setSchoolClassId(SchoolClass schoolClassId) {
 		this.schoolClassId = schoolClassId;
+	}
+
+	@JsonProperty
+	public UserProfile getUserProfileId() {
+		return userProfileId;
+	}
+
+	public void setUserProfileId(UserProfile userProfileId) {
+		this.userProfileId = userProfileId;
+	}
+
+	// @JsonProperty
+	public School getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(School schoolId) {
+		this.schoolId = schoolId;
+	}
+	// @JsonProperty
+	public List<TaskQuestion> getTaskQuestionList() {
+		return taskQuestionList;
+	}
+
+	public void setTaskQuestionList(List<TaskQuestion> taskQuestionList) {
+		this.taskQuestionList = taskQuestionList;
+	}
+
+	public List<StudentFinishingTask> getStudentFinishingTaskList() {
+		return studentFinishingTaskList;
+	}
+
+	public void setStudentFinishingTaskList(
+			List<StudentFinishingTask> studentFinishingTaskList) {
+		this.studentFinishingTaskList = studentFinishingTaskList;
 	}
 }
