@@ -1,8 +1,6 @@
 package org.slerpio.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,6 +8,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.GenerationType;
 import javax.persistence.Basic;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,7 +18,6 @@ import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -27,19 +27,26 @@ import javax.persistence.JoinColumn;
 public class StudentFinishingTask {
 
 	@Id
+	@Column(name = "student_finish_task_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STUDENT_FINISHING_TASK_SEQ")
 	@SequenceGenerator(name = "STUDENT_FINISHING_TASK_SEQ", sequenceName = "student_finishing_task_seq", initialValue = 1, allocationSize = 1)
-	@Column(name = "student_finish_task_id")
 	private Long studentFinishTaskId;
 	@Column(name = "flg_finish")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.StudentFinishingTask.flgFinish")
+	@NotNull(message = "constraint.flgFinish")
 	@Size(min = 1, max = 1)
 	private String flgFinish;
-	
-	@Column(name = "finish_at")	
+	@Column(name = "finish_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date finishAt;
+	@Column(name = "created_at")
+	@Basic(optional = false)
+	@NotNull(message = "constraint.createdAt")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+	@Column(name = "update_at")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateAt;
 
 	@ManyToOne
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
@@ -73,6 +80,24 @@ public class StudentFinishingTask {
 
 	public void setFinishAt(Date finishAt) {
 		this.finishAt = finishAt;
+	}
+
+	@JsonProperty
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	@JsonProperty
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
 	}
 
 	@JsonProperty

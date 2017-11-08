@@ -107,10 +107,12 @@ public class AddTask extends DefaultBusinessTransaction {
 						StudentFinishingTask studentFinishingTask = new StudentFinishingTask();
 						studentFinishingTask.setFlgFinish("N");
 						studentFinishingTask.setTaskId(task);
+						studentFinishingTask.setCreatedAt(new Date());
+						studentFinishingTask.setUpdateAt(new Date());
 						studentFinishingTask.setUserProfileId(p);
 						return studentFinishingTask;
 					}).collect(Collectors.toList());
-			task.setTaskQuestionList(questions);			
+			task.setTaskQuestionList(questions);
 			task.setStudentFinishingTaskList(studentTasks);
 			task = taskRepository.save(task);
 
