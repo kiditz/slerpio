@@ -35,8 +35,7 @@ public class TaskController {
 
 	@GetMapping("/getTaskFromSchool")
 	@ResponseBody
-	public Domain getTaskFromSchool(@RequestParam("size") Integer size,
-			@RequestParam("schoolId") Long schoolId,
+	public Domain getTaskFromSchool(@RequestParam("size") Integer size, @RequestParam("schoolId") Long schoolId,
 			@RequestParam("page") Integer page) {
 		Domain taskDomain = new Domain();
 		taskDomain.put("size", size);
@@ -45,10 +44,9 @@ public class TaskController {
 		return getTaskFromSchool.handle(taskDomain);
 	}
 
-	@GetMapping("/getTaskFromStudent")
+	@GetMapping("/getTaskByStudent")
 	@ResponseBody
-	public Domain getTaskFromProfile(@RequestParam("page") Integer page,
-			@RequestParam("profileId") Long profileId,
+	public Domain getTaskFromProfile(@RequestParam("page") Integer page, @RequestParam("profileId") Long profileId,
 			@RequestParam("size") Integer size) {
 		Domain taskDomain = new Domain();
 		taskDomain.put("page", page);
@@ -59,8 +57,7 @@ public class TaskController {
 
 	@GetMapping("/getTaskByTeacher")
 	@ResponseBody
-	public Domain getTaskByTeacher(@RequestParam("page") Integer page,
-			@RequestParam("size") Integer size,
+	public Domain getTaskByTeacher(@RequestParam("page") Integer page, @RequestParam("size") Integer size,
 			@RequestParam("profileId") Long profileId) {
 		Domain taskDomain = new Domain();
 		taskDomain.put("page", page);
