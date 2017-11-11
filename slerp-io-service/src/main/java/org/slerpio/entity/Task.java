@@ -62,7 +62,7 @@ public class Task {
 	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
 	private School schoolId;
 
-	@OneToMany(mappedBy = "taskId", orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<TaskQuestion> taskQuestionList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId", fetch = FetchType.LAZY)

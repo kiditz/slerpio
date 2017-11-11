@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,7 +59,7 @@ public class TaskQuestion {
 	@JoinColumn(name = "task_id", referencedColumnName = "task_id")
 	private Task taskId;
 
-	@OneToMany(mappedBy = "taskQuestionId", orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskQuestionId", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<TaskAnswer> taskAnswerList;
 
 	@JsonProperty
