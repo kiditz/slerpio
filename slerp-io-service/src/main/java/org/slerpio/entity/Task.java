@@ -1,28 +1,29 @@
 package org.slerpio.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.GenerationType;
-import javax.persistence.Basic;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import java.util.List;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
-import org.slerpio.entity.TaskQuestion;
-import org.slerpio.entity.StudentFinishingTask;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "task")
@@ -37,31 +38,31 @@ public class Task {
 	private Long taskId;
 	@Column(name = "title")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Task.title")
+	@NotNull(message = "required.value.title")
 	private String title;
 	@Column(name = "description")
 	private String description;
 	@Column(name = "created_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Task.createdAt")
+	@NotNull(message = "required.value.createdAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@Column(name = "update_at")
 	@Basic(optional = false)
-	@NotNull(message = "org.slerpio.entity.Task.updateAt")
+	@NotNull(message = "required.value.updateAt")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id")
 	private SchoolClass schoolClassId;
 	@ManyToOne
 	@JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id")
 	private UserProfile userProfileId;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "school_id", referencedColumnName = "school_id")
 	private School schoolId;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
+	@OneToMany(mappedBy = "taskId", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<TaskQuestion> taskQuestionList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
@@ -138,6 +139,7 @@ public class Task {
 	public void setSchoolId(School schoolId) {
 		this.schoolId = schoolId;
 	}
+
 	// @JsonProperty
 	public List<TaskQuestion> getTaskQuestionList() {
 		return taskQuestionList;
@@ -151,8 +153,7 @@ public class Task {
 		return studentFinishingTaskList;
 	}
 
-	public void setStudentFinishingTaskList(
-			List<StudentFinishingTask> studentFinishingTaskList) {
+	public void setStudentFinishingTaskList(List<StudentFinishingTask> studentFinishingTaskList) {
 		this.studentFinishingTaskList = studentFinishingTaskList;
 	}
 }
