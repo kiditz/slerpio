@@ -86,7 +86,7 @@ public class UserProfile {
 	@Column(name = "update_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
-	@Fetch(FetchMode.SELECT)
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_school_at", joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id"), inverseJoinColumns = @JoinColumn(name = "school_id", referencedColumnName = "school_id"))
 	private Set<School> schoolSet = new HashSet<>();
@@ -94,10 +94,10 @@ public class UserProfile {
 	@JoinTable(name = "class_student", joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "user_profile_id"), inverseJoinColumns = @JoinColumn(name = "school_class_id", referencedColumnName = "school_class_id"))
 	private Set<SchoolClass> classSet = new HashSet<>();
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId", fetch=FetchType.LAZY)
 	private List<Task> taskList;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfileId", fetch=FetchType.LAZY)
 	private List<StudentFinishingTask> studentFinishingTaskList;
 
 	@JsonProperty

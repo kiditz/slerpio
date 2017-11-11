@@ -1,6 +1,7 @@
 package org.slerpio.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -53,11 +54,11 @@ public class TaskQuestion {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateAt;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "task_id", referencedColumnName = "task_id")
 	private Task taskId;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taskQuestionId")
+	@OneToMany(mappedBy = "taskQuestionId", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<TaskAnswer> taskAnswerList;
 
 	@JsonProperty
@@ -105,7 +106,7 @@ public class TaskQuestion {
 		this.updateAt = updateAt;
 	}
 
-//	@JsonProperty
+	// @JsonProperty
 	public Task getTaskId() {
 		return taskId;
 	}
@@ -113,6 +114,7 @@ public class TaskQuestion {
 	public void setTaskId(Task taskId) {
 		this.taskId = taskId;
 	}
+
 	@JsonProperty
 	public List<TaskAnswer> getTaskAnswerList() {
 		return taskAnswerList;
