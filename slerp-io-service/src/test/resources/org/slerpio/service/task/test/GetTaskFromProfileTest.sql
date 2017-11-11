@@ -90,11 +90,37 @@ INSERT INTO task_answer (task_answer_id, answer, task_question_id, created_at, u
 INSERT INTO task_answer (task_answer_id, answer, task_question_id, created_at, update_at) VALUES
 (16, 'batas waktu', 5, '2017-11-07 23:44:16.261', '2017-11-07 23:44:16.261');
 
-INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES 
-(1, 4, 8, 'N', null);
-INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
-(2, 5, 8, 'N', null);
-INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
-(3, 6, 8, 'N', null);
-INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
-(4, 7, 8, 'N', null);
+--INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES 
+--(1, 4, 8, 'N', null);
+--INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
+--(2, 5, 8, 'N', null);
+--INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
+--(3, 6, 8, 'N', null);
+--INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at) VALUES
+--(4, 7, 8, 'N', null);
+
+
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES 
+(9, 4, 45, 'N', null, '2017-11-10 20:43:23.441', '2017-11-10 20:43:23.441');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(10, 5, 45, 'N', null, '2017-11-10 20:43:23.441', '2017-11-10 20:43:23.441');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(11, 6, 45, 'N', null, '2017-11-10 20:43:23.441', '2017-11-10 20:43:23.441');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(12, 7, 45, 'N', null, '2017-11-10 20:43:23.441', '2017-11-10 20:43:23.441');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(13, 4, 71, 'N', null, '2017-11-11 15:47:13.508', '2017-11-11 15:47:13.508');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(14, 5, 71, 'N', null, '2017-11-11 15:47:13.508', '2017-11-11 15:47:13.508');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(15, 6, 71, 'N', null, '2017-11-11 15:47:13.508', '2017-11-11 15:47:13.508');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(16, 7, 71, 'N', null, '2017-11-11 15:47:13.508', '2017-11-11 15:47:13.508');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(17, 4, 72, 'N', null, '2017-11-11 19:14:58.174', '2017-11-11 19:14:58.174');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(18, 5, 72, 'N', null, '2017-11-11 19:14:58.174', '2017-11-11 19:14:58.174');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(19, 6, 72, 'N', null, '2017-11-11 19:14:58.174', '2017-11-11 19:14:58.174');
+INSERT INTO student_finishing_task (student_finish_task_id, user_profile_id, task_id, flg_finish, finish_at, created_at, update_at) VALUES
+(20, 7, 72, 'N', null, '2017-11-11 19:14:58.174', '2017-11-11 19:14:58.174');
