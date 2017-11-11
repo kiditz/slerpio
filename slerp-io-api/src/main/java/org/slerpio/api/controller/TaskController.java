@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.slerp.core.business.BusinessFunction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 public class TaskController {
@@ -29,6 +30,12 @@ public class TaskController {
 	@Autowired
 	BusinessFunction getTaskFromClass;
 
+	@Autowired
+	BusinessTransaction removeTask;
+
+	@Autowired
+	BusinessFunction getQuestionByTask;
+
 	@PostMapping("/addTask")
 	@ResponseBody
 	public Domain addTask(@RequestBody Domain taskDomain) {
@@ -36,9 +43,9 @@ public class TaskController {
 		return outputDto;
 	}
 
-	@GetMapping("/getTaskFromSchool")
+	@GetMapping("/getTaskBySchool")
 	@ResponseBody
-	public Domain getTaskFromSchool(@RequestParam("size") Integer size,
+	public Domain getTaskBySchool(@RequestParam("size") Integer size,
 			@RequestParam("schoolId") Long schoolId,
 			@RequestParam("page") Integer page) {
 		Domain taskDomain = new Domain();
@@ -72,9 +79,9 @@ public class TaskController {
 		return getTaskByTeacher.handle(taskDomain);
 	}
 
-	@GetMapping("/getTaskFromClass")
+	@GetMapping("/getTaskByClass")
 	@ResponseBody
-	public Domain getTaskFromClass(@RequestParam("classId") Long classId,
+	public Domain getTaskByClass(@RequestParam("classId") Long classId,
 			@RequestParam("size") Integer size,
 			@RequestParam("page") Integer page) {
 		Domain taskDomain = new Domain();
@@ -82,5 +89,44 @@ public class TaskController {
 		taskDomain.put("size", size);
 		taskDomain.put("page", page);
 		return getTaskFromClass.handle(taskDomain);
+	}
+
+	@DeleteMapping("/removeTask")
+	@ResponseBody
+	public Domain removeTask(@RequestBody Domain taskDomain) {
+		Domain outputDto = removeTask.handle(taskDomain);
+		return outputDto;
+	}
+
+	@GetMapping("/getTaskFromClass")
+	@ResponseBody
+	public Domain getTaskFromClass(@RequestParam("page") Integer page,
+			@RequestParam("classId") Long classId,
+			@RequestParam("size") Integer size) {
+		Domain taskDomain = new Domain();
+		taskDomain.put("page", page);
+		taskDomain.put("classId", classId);
+		taskDomain.put("size", size);
+		return getTaskFromClass.handle(taskDomain);
+	}
+
+	@GetMapping("/getTaskFromSchool")
+	@ResponseBody
+	public Domain getTaskFromSchool(@RequestParam("page") Integer page,
+			@RequestParam("schoolId") Long schoolId,
+			@RequestParam("size") Integer size) {
+		Domain taskDomain = new Domain();
+		taskDomain.put("page", page);
+		taskDomain.put("schoolId", schoolId);
+		taskDomain.put("size", size);
+		return getTaskFromSchool.handle(taskDomain);
+	}
+
+	@GetMapping("/getQuestionByTask")
+	@ResponseBody
+	public Domain getQuestionByTask(@RequestParam("taskId") Long taskId) {
+		Domain taskDomain = new Domain();
+		taskDomain.put("taskId", taskId);
+		return getQuestionByTask.handle(taskDomain);
 	}
 }
