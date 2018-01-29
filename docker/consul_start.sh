@@ -9,6 +9,6 @@ docker run -d \
   consul agent -server -ui \
     -bootstrap-expect=1 \
     -client=0.0.0.0 \
-    -advertise=192.168.1.100 \
+    -advertise=172.17.0.1 \
     -data-dir="/consul" \
 

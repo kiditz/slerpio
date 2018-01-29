@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @KeyValidation({ "phoneNumber", "password", "email", "userAuthorityList" })
 @NotBlankValidation({ "phoneNumber", "password", "email" })
-@EmailValidation("email")
 public class AddUserPrincipal extends DefaultBusinessTransaction {
 
 	@Autowired

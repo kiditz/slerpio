@@ -4,8 +4,19 @@ spring:
     name: slerp-oauth
   cloud:
     consul:
-      host: localhost
+      host: ${CONSUL_SERVER:localhost}
       port: 8500
+      discovery: 
+        preferIpAddress: true
       config:
         fail-fast: true
         format: yaml
+endpoints: 
+  health: 
+    sensitive: false
+management:
+  security:
+    enabled: false    
+  health: 
+    consul: 
+      enabled: false    

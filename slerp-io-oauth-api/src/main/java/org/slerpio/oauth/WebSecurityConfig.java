@@ -23,10 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userSecurityService).passwordEncoder(new BCryptPasswordEncoder());
 	}
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/register");
+		web.ignoring().antMatchers("/register", "/health", "/socket/**");
 	}
+
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -35,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().csrf().disable();
+		http.authorizeRequests().anyRequest().authenticated().and().authorizeRequests().antMatchers("/oauth/token", "/socket/**")
+				.permitAll().and().csrf().disable();
 	}
 }

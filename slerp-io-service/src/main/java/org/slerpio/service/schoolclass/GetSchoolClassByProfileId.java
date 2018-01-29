@@ -28,6 +28,6 @@ public class GetSchoolClassByProfileId extends DefaultBusinessFunction {
 		List<SchoolClass> schoolClass = schoolClassRepository.findSchoolClassByProfileId(schoolClassDomain.getLong("profileId"));
 		if(schoolClass.isEmpty())
 			throw new CoreException(ServiceConstant.STUDENT_NOT_HAVE_CLASS);
-		return new Domain(schoolClass.get(0));
+		return new Domain().put("classes", schoolClass);
 	}
 }

@@ -31,4 +31,7 @@ public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> 
 	@Query("SELECT c FROM SchoolClass c JOIN c.students p WHERE p.profileId = :profileId")
 	public SchoolClass findClassByProfile(@Param("profileId") Long profileId);
 
+	@Query("SELECT c FROM SchoolClass c JOIN c.students s WHERE s.profileId = :profileId")
+	public List<SchoolClass> getStudentClassByProfile(@Param("profileId") Long profileId);
+
 }

@@ -1,1 +1,7 @@
 docker/microservice-docker-demo-consul
+slerp-rest-api/bin
+slerp-rest-api/include
+slerp-rest-api/lib
+slerp-rest-api/local
+slerp-rest-api/migrations
+slerp-rest-api/share

@@ -7,7 +7,7 @@ kafka:
 flyway:
     enabled: false
 spring: 
-  profiles: docker
+  profiles: dev
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -17,7 +17,7 @@ spring:
     driverClassName: org.postgresql.Driver
     username: kiditz
     password: rioters7
-    url: jdbc:postgresql://172.17.0.1:5432/slerp-io-oauth  
+    url: jdbc:postgresql://172.17.0.1:2270/slerp_oauth  
   mail:
     host: smtp.gmail.com
     port: 587
